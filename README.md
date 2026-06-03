@@ -19,7 +19,7 @@
 
 GitHub Pages:
 
-https://＜ユーザー名＞.github.io/＜リポジトリ名＞/
+https://lazyum-t.github.io/kakeibo/
 
 ## 使用技術
 
