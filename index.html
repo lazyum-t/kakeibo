@@ -758,46 +758,81 @@ function getSimMonths(){
   return [...set].sort();
 }
 
-// 翌月の引き落とし日を取得
-function getNextMonthPayDate(billingYear,billingMonth,payDay,holiday){
-  let pm=billingMonth+1;
-  let py=billingYear;
-  if(pm>11){pm=0;py++;}
-  return adjustDate(py,pm,payDay,holiday);
+// 利用年月・利用日・締め日から引き落とし年月を返す
+// 末日締め → 翌月, 固定締め日以内 → 翌月, 固定締め日超 → 翌々月
+function getPayYearMonth(useYear,useMonth,useDay,closeDay){
+  const isLast=(closeDay==='last'||closeDay===0||closeDay===99);
+  let offset;
+  if(isLast){
+    offset=1; // 末日締め：当月全て翌月引き落とし
+  }else{
+    offset=(useDay<=closeDay)?1:2; // 締め日以内→翌月, 超過→翌々月
+  }
+  let pm=useMonth+offset;
+  let py=useYear;
+  while(pm>11){pm-=12;py++;}
+  return{year:py,month:pm};
 }
 
-// ★★ 修正箇所：表示上限を「今日から3ヶ月後の月末」に制限
+// ★★ 修正：締め日を考慮して各明細行ごとに引き落とし年月を決定
 function buildSimEvents(startBal){
   const events=[];
   const today=new Date();
   const todayMidnight=new Date(today.getFullYear(),today.getMonth(),today.getDate());
 
-  // 3ヶ月後の月末を表示上限として計算
+  // 表示上限：今日から3ヶ月後の月末
   let limitMonth=today.getMonth()+3;
   let limitYear=today.getFullYear();
   if(limitMonth>11){limitMonth-=12;limitYear++;}
-  // 3ヶ月後の月末日
-  const limitDate=new Date(limitYear,limitMonth+1,0); // 月末日（翌月0日）
+  const limitDate=new Date(limitYear,limitMonth+1,0);
 
   events.push({date:today,name:'現在残高',amount:0,type:'start',balance:startBal});
+
+  // ── カード引き落とし集計 ──────────────────────────────
+  // key: "カード名|YYYY-MM" → 合計金額
+  // 各明細行の利用日と締め日を個別に比較して引き落とし月を決定する
+  const cardBillingMap={};
 
   getSimMonths().forEach(mk=>{
     const[y,m]=mk.split('-').map(Number);
     const month=m-1;
     const rows=monthData[mk]||[];
 
-    // ★ クレジットカード：当月利用分 → 翌月の引き落とし日に計上
-    settings.cards.forEach(c=>{
-      const payDate=getNextMonthPayDate(y,month,c.day,c.holiday);
-      const payMidnight=new Date(payDate.getFullYear(),payDate.getMonth(),payDate.getDate());
-      // 今日より前、または表示上限より後の引き落とし日はスキップ
-      if(payMidnight<todayMidnight)return;
-      if(payMidnight>limitDate)return;
-      const total=rows.filter(r=>r.card===c.name).reduce((s,r)=>s+(parseFloat(r.amount)||0),0);
-      if(total>0)events.push({date:payDate,name:c.name,amount:-total,type:'expense'});
-    });
+    rows.forEach(r=>{
+      if(!r.card||r.card==='')return; // カード未設定は別処理
+      const card=settings.cards.find(c=>c.name===r.card);
+      if(!card)return;
+      const useDay=parseInt(r.day)||1;
+      const amt=parseFloat(r.amount)||0;
+      if(amt<=0)return;
 
-    // カード未設定の支出：その月の1日が今日以降かつ上限以内のみ
+      // 締め日に基づいて引き落とし年月を計算
+      const{year:py,month:pm}=getPayYearMonth(y,month,useDay,card.closeDay);
+      const billingKey=`${r.card}|${py}-${pad(pm+1)}`;
+      cardBillingMap[billingKey]=(cardBillingMap[billingKey]||0)+amt;
+    });
+  });
+
+  // 集計したカード引き落としをイベントに変換
+  Object.entries(cardBillingMap).forEach(([key,total])=>{
+    const[cardName,ym]=key.split('|');
+    const card=settings.cards.find(c=>c.name===cardName);
+    if(!card)return;
+    const[py,pm]=ym.split('-').map(Number);
+    const payDate=adjustDate(py,pm-1,card.day,card.holiday);
+    const payMidnight=new Date(payDate.getFullYear(),payDate.getMonth(),payDate.getDate());
+    if(payMidnight<todayMidnight)return;
+    if(payMidnight>limitDate)return;
+    events.push({date:payDate,name:card.name,amount:-total,type:'expense'});
+  });
+
+  // ── カード未設定の支出・定額・収入 ─────────────────────
+  getSimMonths().forEach(mk=>{
+    const[y,m]=mk.split('-').map(Number);
+    const month=m-1;
+    const rows=monthData[mk]||[];
+
+    // カード未設定の支出：その月の1日付けで計上
     const noCardDate=new Date(y,month,1);
     if(noCardDate>=todayMidnight&&noCardDate<=limitDate){
       const noCard=rows.filter(r=>!r.card||r.card==='').reduce((s,r)=>s+(parseFloat(r.amount)||0),0);
