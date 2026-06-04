@@ -719,13 +719,34 @@ function updateSummary(){
 
 // ======================================================================
 // SIMULATOR
+// ★ 今日から3ヶ月分（今月・来月・再来月）を常に対象に含める
 // ★ クレジットカードの支出は「翌月の引き落とし日」に計上
 // ======================================================================
-function getAllDataMonths(){
+
+// ★★ 修正箇所：今日から3ヶ月分のキーを常に含める
+function getSimMonths(){
+  const now=new Date();
   const set=new Set();
-  set.add(`${new Date().getFullYear()}-${pad(new Date().getMonth()+1)}`);
-  Object.keys(monthData).forEach(k=>{if((monthData[k]||[]).length>0)set.add(k);});
-  Object.keys(incomeData).forEach(k=>{if(Object.keys(incomeData[k]||{}).length>0)set.add(k);});
+
+  // 今日から3ヶ月分（今月・来月・再来月）を固定で追加
+  for(let i=0;i<3;i++){
+    let y=now.getFullYear();
+    let m=now.getMonth()+i;
+    if(m>11){m-=12;y++;}
+    set.add(`${y}-${pad(m+1)}`);
+  }
+
+  // monthDataに入力済みデータがある月も追加（シミュレーターの精度向上のため）
+  Object.keys(monthData).forEach(k=>{
+    if((monthData[k]||[]).length>0)set.add(k);
+  });
+  Object.keys(incomeData).forEach(k=>{
+    if(Object.keys(incomeData[k]||{}).length>0)set.add(k);
+  });
+
+  // ★ シミュレーターには今月〜3ヶ月後の範囲のみ表示（過去月は除外）
+  // 引き落とし日の計算のためにカード利用月（monthData）は全て参照するが、
+  // イベント表示は今日以降のみに絞る（buildSimEvents内のtodayMidnight判定で制御）
   return [...set].sort();
 }
 
@@ -737,12 +758,22 @@ function getNextMonthPayDate(billingYear,billingMonth,payDay,holiday){
   return adjustDate(py,pm,payDay,holiday);
 }
 
+// ★★ 修正箇所：表示上限を「今日から3ヶ月後の月末」に制限
 function buildSimEvents(startBal){
   const events=[];
   const today=new Date();
+  const todayMidnight=new Date(today.getFullYear(),today.getMonth(),today.getDate());
+
+  // 3ヶ月後の月末を表示上限として計算
+  let limitMonth=today.getMonth()+3;
+  let limitYear=today.getFullYear();
+  if(limitMonth>11){limitMonth-=12;limitYear++;}
+  // 3ヶ月後の月末日
+  const limitDate=new Date(limitYear,limitMonth+1,0); // 月末日（翌月0日）
+
   events.push({date:today,name:'現在残高',amount:0,type:'start',balance:startBal});
 
-  getAllDataMonths().forEach(mk=>{
+  getSimMonths().forEach(mk=>{
     const[y,m]=mk.split('-').map(Number);
     const month=m-1;
     const rows=monthData[mk]||[];
@@ -750,25 +781,38 @@ function buildSimEvents(startBal){
     // ★ クレジットカード：当月利用分 → 翌月の引き落とし日に計上
     settings.cards.forEach(c=>{
       const payDate=getNextMonthPayDate(y,month,c.day,c.holiday);
+      const payMidnight=new Date(payDate.getFullYear(),payDate.getMonth(),payDate.getDate());
+      // 今日より前、または表示上限より後の引き落とし日はスキップ
+      if(payMidnight<todayMidnight)return;
+      if(payMidnight>limitDate)return;
       const total=rows.filter(r=>r.card===c.name).reduce((s,r)=>s+(parseFloat(r.amount)||0),0);
       if(total>0)events.push({date:payDate,name:c.name,amount:-total,type:'expense'});
     });
 
-    // カード未設定の支出はその月の1日に計上
-    const noCard=rows.filter(r=>!r.card||r.card==='').reduce((s,r)=>s+(parseFloat(r.amount)||0),0);
-    if(noCard>0)events.push({date:new Date(y,month,1),name:'カード未設定',amount:-noCard,type:'expense'});
+    // カード未設定の支出：その月の1日が今日以降かつ上限以内のみ
+    const noCardDate=new Date(y,month,1);
+    if(noCardDate>=todayMidnight&&noCardDate<=limitDate){
+      const noCard=rows.filter(r=>!r.card||r.card==='').reduce((s,r)=>s+(parseFloat(r.amount)||0),0);
+      if(noCard>0)events.push({date:noCardDate,name:'カード未設定',amount:-noCard,type:'expense'});
+    }
 
-    // 定額支払い：当月の引き落とし日
+    // 定額支払い：引き落とし日が今日以降かつ上限以内のみ
     settings.fixed.forEach(f=>{
       if(f.amount>0){
         const adj=adjustDate(y,month,f.day,f.holiday);
+        const adjMidnight=new Date(adj.getFullYear(),adj.getMonth(),adj.getDate());
+        if(adjMidnight<todayMidnight)return;
+        if(adjMidnight>limitDate)return;
         events.push({date:adj,name:f.name,amount:-f.amount,type:'expense'});
       }
     });
 
-    // 収入：当月の振り込み日
+    // 収入：振り込み日が今日以降かつ上限以内のみ
     settings.income.forEach(inc=>{
       const adj=adjustIncomeDate(y,month,inc.day,inc.holiday);
+      const adjMidnight=new Date(adj.getFullYear(),adj.getMonth(),adj.getDate());
+      if(adjMidnight<todayMidnight)return;
+      if(adjMidnight>limitDate)return;
       let amount=0;
       if(incomeData[mk]?.[inc.name])amount=parseFloat(incomeData[mk][inc.name])||0;
       if(!amount&&inc.defaultAmount&&inc.defaultAmount>0)amount=inc.defaultAmount;
@@ -792,10 +836,17 @@ function buildSimEvents(startBal){
 
 let simCalcTimer=null;
 function scheduleSimCalc(){clearTimeout(simCalcTimer);simCalcTimer=setTimeout(renderSimulator,600);}
+
+// ★★ 修正箇所：sim-info に「今日〜3ヶ月後まで」の範囲を表示
 function renderSimulator(){
   const startBal=parseFloat(document.getElementById('current-balance').value)||0;
-  const months=getAllDataMonths();
-  document.getElementById('sim-info').textContent=`対象月：${months.join('、')}`;
+  const now=new Date();
+  let limitMonth=now.getMonth()+3;
+  let limitYear=now.getFullYear();
+  if(limitMonth>11){limitMonth-=12;limitYear++;}
+  const rangeLabel=`${now.getFullYear()}年${now.getMonth()+1}月〜${limitYear}年${limitMonth+1}月（3ヶ月分）`;
+  document.getElementById('sim-info').textContent=`表示期間：${rangeLabel}`;
+
   const events=buildSimEvents(startBal);
   let html='<div class="sim-list-card">';
   let lastMonth=null;
