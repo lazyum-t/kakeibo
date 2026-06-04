@@ -483,11 +483,19 @@ function switchSubTab(tab){
 // ======================================================================
 // MONTH
 // ======================================================================
+// ★ 起動時・月切替時のみ日付順ソート（入力中は更新しない）
+function sortExpensesByDay(){
+  const key=getKey();
+  if(!monthData[key]||monthData[key].length===0)return;
+  monthData[key].sort((a,b)=>(a.day||0)-(b.day||0));
+}
+
 function changeMonth(delta){
   currentMonth+=delta;
   if(currentMonth>11){currentMonth=0;currentYear++;}
   if(currentMonth<0){currentMonth=11;currentYear--;}
   undoStack=[];updateUndoBtn();
+  sortExpensesByDay();
   renderKakeibo();
 }
 function updateMonthLabel(){document.getElementById('month-label').textContent=`${currentYear}年${currentMonth+1}月`;}
@@ -1195,6 +1203,12 @@ function init(){
     ];
     incomeData[key]={'水春':49950};
   }
+  // 起動時：全月のデータを日付順にソートしてから描画
+  Object.keys(monthData).forEach(k=>{
+    if(monthData[k]&&monthData[k].length>0){
+      monthData[k].sort((a,b)=>(a.day||0)-(b.day||0));
+    }
+  });
   renderKakeibo();
 }
 
