@@ -8,7 +8,8 @@
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
 
   :root {
-    --bg:#F2F4F7; --surface:#FFFFFF; --surface2:#F8F9FB; --border:#E8EBF0;
+    --bg:#F2F4F7; --surface:#FFFFFF; --surface2:#F8F9FB;
+    --border:#E8EBF0;
     --text:#0F1923; --text2:#6B7A8D; --text3:#A8B3C0;
     --accent:#2563EB; --accent-light:#EFF4FF;
     --red:#E53935; --red-light:#FEF0EF;
@@ -53,21 +54,33 @@
   .section-card-total{font-size:15px;font-weight:700;}
   .section-card-total.expense{color:var(--red);} .section-card-total.income{color:var(--green);}
 
+  .installments-header {
+    font-size: 11px; font-weight: 700; color: var(--accent);
+    padding: 8px 10px 4px; border-bottom: 1px solid var(--border);
+    background: var(--accent-light); margin-bottom: 0;
+    display: flex; align-items: center; gap: 6px;
+  }
   .expense-row{padding:8px 10px 8px 6px;border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:6px;}
   .expense-row:last-child{border-bottom:none;}
   .expense-row-top{display:grid;grid-template-columns:36px 1fr 28px;align-items:center;gap:6px;}
-  .expense-row-bottom{display:grid;grid-template-columns:1fr auto;align-items:center;gap:6px;padding-left:42px;}
+  .expense-row-bottom{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:6px;padding-left:42px;}
+  
   .day-badge{width:30px;height:30px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--text2);flex-shrink:0;}
   .day-badge input[type="number"]{width:100%;height:100%;border:none;background:transparent;text-align:center;font-family:inherit;font-size:13px;font-weight:700;color:var(--text2);outline:none;padding:0;}
   .item-input{border:none;background:transparent;font-family:inherit;font-size:13px;color:var(--text);outline:none;width:100%;padding:4px 0;}
   .item-input::placeholder{color:var(--text3);}
   .del-btn{width:28px;height:28px;border:none;background:none;cursor:pointer;color:var(--text3);border-radius:6px;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
   .del-btn:active{background:var(--red-light);color:var(--red);}
-  .card-select{border:1px solid var(--border);background:var(--surface2);border-radius:8px;padding:5px 22px 5px 6px;font-family:inherit;font-size:11px;font-weight:600;color:var(--text2);outline:none;cursor:pointer;max-width:160px;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23A8B3C0' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 7px center;}
+  
+  .card-select{border:1px solid var(--border);background:var(--surface2);border-radius:8px;padding:5px 22px 5px 6px;font-family:inherit;font-size:11px;font-weight:600;color:var(--text2);outline:none;cursor:pointer;max-width:140px;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23A8B3C0' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 7px center;}
   .card-select:focus{border-color:var(--accent);}
+  
+  .install-select{border:1px solid var(--border);background:var(--surface2);border-radius:8px;padding:5px 20px 5px 6px;font-family:inherit;font-size:11px;font-weight:600;color:var(--text2);outline:none;cursor:pointer;width:auto;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23A8B3C0' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 5px center;}
+  .install-select:focus{border-color:var(--accent);}
+
   .amount-input-wrap{display:flex;align-items:center;gap:2px;}
   .yen-sym{font-size:11px;color:var(--text3);}
-  .amount-input{border:none;background:transparent;font-family:inherit;font-size:14px;font-weight:700;color:var(--text);text-align:right;outline:none;width:90px;}
+  .amount-input{border:none;background:transparent;font-family:inherit;font-size:14px;font-weight:700;color:var(--text);text-align:right;outline:none;width:80px;}
   .amount-input::placeholder{color:var(--text3);font-weight:400;}
 
   .income-row-item{display:grid;grid-template-columns:1fr auto;align-items:center;padding:0 10px 0 14px;border-bottom:1px solid var(--border);min-height:48px;gap:6px;}
@@ -84,6 +97,7 @@
   .sim-balance-row{display:flex;align-items:center;gap:8px;}
   .sim-balance-input{font-size:26px;font-weight:900;background:transparent;border:none;color:#fff;font-family:inherit;outline:none;flex:1;min-width:0;}
   .sim-recalc-btn{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);color:#fff;padding:7px 14px;border-radius:20px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;}
+ 
   .sim-recalc-btn:active{background:rgba(255,255,255,.35);}
   .sim-list-card{background:var(--surface);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm);}
   .sim-month-header{background:var(--accent-light);padding:7px 14px;font-size:11px;font-weight:700;color:var(--accent);border-bottom:1px solid var(--border);}
@@ -172,7 +186,6 @@
   .toast.error{background:var(--red);}
   .toast.warn{background:var(--yellow);color:var(--text);}
 
-  /* 締め日 末日チェックボックス行 */
   .close-last-row{display:flex;align-items:center;gap:6px;margin-top:6px;}
   .close-last-row label{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:4px;cursor:pointer;}
 </style>
@@ -187,6 +200,7 @@
       <span class="header-month-label" id="month-label"></span>
       <button class="month-arrow" onclick="changeMonth(1)">▶</button>
     </div>
+  
     <button class="header-btn" id="undo-btn" onclick="undoExpense()" title="元に戻す" style="opacity:.35;cursor:default;">↩</button>
     <button class="header-btn" onclick="openCalc()" title="電卓">🧮</button>
     <button class="header-btn" onclick="manualSave()" title="保存">💾</button>
@@ -194,7 +208,6 @@
 
   <div class="page-content" id="page-content">
 
-    <!-- 家計簿 -->
     <div id="page-kakeibo" class="page active">
       <div class="summary-strip">
         <div class="sum-item"><div class="sum-label">収入</div><div class="sum-val income" id="total-income">¥0</div></div>
@@ -234,12 +247,11 @@
       </div>
     </div>
 
-    <!-- シミュレーター -->
     <div id="page-simulator" class="page">
       <div class="sim-balance-card">
         <div class="sim-balance-label">現在の残高</div>
         <div class="sim-balance-row">
-          <input type="number" class="sim-balance-input" id="current-balance" value="77497" oninput="scheduleSimCalc()">
+          <input type="number" class="sim-balance-input" id="current-balance" value="77497" oninput="handleBalanceInput()">
           <span style="font-size:16px;opacity:.8">円</span>
           <button class="sim-recalc-btn" onclick="renderSimulator()">🔄 再計算</button>
         </div>
@@ -248,7 +260,6 @@
       <div id="sim-timeline"></div>
     </div>
 
-    <!-- 設定 -->
     <div id="page-settings" class="page">
       <div class="data-actions">
         <button class="data-action-btn" onclick="downloadData()"><span>⬇</span>書き出し</button>
@@ -290,7 +301,6 @@
   </nav>
 </div>
 
-<!-- 設定編集モーダル -->
 <div class="modal-overlay" id="edit-modal">
   <div class="modal">
     <div class="modal-handle"></div>
@@ -303,11 +313,11 @@
   </div>
 </div>
 
-<!-- 重複確認モーダル -->
 <div class="modal-overlay" id="dup-modal">
   <div class="modal">
     <div class="modal-handle"></div>
     <div class="modal-title">同じ支払いがあります</div>
+  
     <div class="modal-body">
       <p class="dup-msg" id="dup-msg"></p>
     </div>
@@ -320,7 +330,6 @@
   </div>
 </div>
 
-<!-- インポート確認 -->
 <div class="modal-overlay" id="import-confirm-modal">
   <div class="modal">
     <div class="modal-handle"></div>
@@ -336,7 +345,6 @@
   </div>
 </div>
 
-<!-- 消去確認 -->
 <div class="modal-overlay" id="clear-confirm-modal">
   <div class="modal">
     <div class="modal-handle"></div>
@@ -352,7 +360,6 @@
   </div>
 </div>
 
-<!-- 電卓モーダル -->
 <div class="modal-overlay" id="calc-modal">
   <div class="modal" style="border-radius:20px 20px 0 0;overflow:hidden;padding-bottom:0;">
     <div class="modal-handle"></div>
@@ -401,10 +408,8 @@ let currentSubTab='expense';
 
 let monthData={};
 let incomeData={};
+let lastCalculatedDate=null; // 残高自動更新の基準日
 
-// ★ カードに closeDay（締め日）を追加。'last' = 末日
-// ★ day = 引き落とし日（翌月）
-// 重複チェック・シミュレーターは引き落とし日 day で統一
 let settings={
   cards:[
     {name:'イオンカード',      closeDay:10,     day:2,  holiday:'next'},
@@ -424,7 +429,6 @@ let settings={
     {name:'水春',day:15,amount:0,holiday:'prev',defaultAmount:0},
   ]
 };
-
 const HOLIDAYS=new Set([
   '2024-01-01','2024-01-08','2024-02-11','2024-02-12','2024-02-23','2024-03-20',
   '2024-04-29','2024-05-03','2024-05-04','2024-05-05','2024-05-06','2024-07-15',
@@ -442,7 +446,6 @@ const HOLIDAYS=new Set([
   '2027-04-29','2027-05-03','2027-05-04','2027-05-05','2027-07-19',
   '2027-08-11','2027-09-20','2027-09-23','2027-10-11','2027-11-03','2027-11-23',
 ]);
-
 function isHoliday(d){const k=`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;return d.getDay()===0||d.getDay()===6||HOLIDAYS.has(k);}
 function adjustDate(year,month,day,mode){const last=new Date(year,month+1,0).getDate();if(day>last)day=last;let d=new Date(year,month,day);if(!isHoliday(d))return d;const step=mode==='next'?86400000:-86400000;while(isHoliday(d))d=new Date(d.getTime()+step);return d;}
 function adjustIncomeDate(year,month,day,mode){const last=new Date(year,month+1,0).getDate();if(day>last)day=last;let d=new Date(year,month,day);if(!isHoliday(d))return d;const step=mode==='next'?86400000:-86400000;while(isHoliday(d))d=new Date(d.getTime()+step);return d;}
@@ -452,12 +455,7 @@ function pad(n){return String(n).padStart(2,'0');}
 function getKey(){return `${currentYear}-${pad(currentMonth+1)}`;}
 function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function todayDay(){const now=new Date();if(currentYear===now.getFullYear()&&currentMonth===now.getMonth())return now.getDate();return '';}
-
-// 締め日の表示
-function fmtCloseDay(cd){
-  if(cd==='last'||cd===0||cd===99)return '末日';
-  return `${cd}日`;
-}
+function fmtCloseDay(cd){if(cd==='last'||cd===0||cd===99)return '末日'; return `${cd}日`;}
 
 // ======================================================================
 // PAGE / SUB-TAB
@@ -483,13 +481,11 @@ function switchSubTab(tab){
 // ======================================================================
 // MONTH
 // ======================================================================
-// ★ 起動時・月切替時のみ日付順ソート（入力中は更新しない）
 function sortExpensesByDay(){
   const key=getKey();
   if(!monthData[key]||monthData[key].length===0)return;
   monthData[key].sort((a,b)=>(a.day||0)-(b.day||0));
 }
-
 function changeMonth(delta){
   currentMonth+=delta;
   if(currentMonth>11){currentMonth=0;currentYear++;}
@@ -501,7 +497,7 @@ function changeMonth(delta){
 function updateMonthLabel(){document.getElementById('month-label').textContent=`${currentYear}年${currentMonth+1}月`;}
 
 // ======================================================================
-// KAKEIBO
+// KAKEIBO (Expenses with Installments support)
 // ======================================================================
 function renderKakeibo(){
   updateMonthLabel();
@@ -525,7 +521,14 @@ function renderExpenseRows(){
   const rows=monthData[key];
   const wrap=document.getElementById('expense-rows');
   wrap.innerHTML='';
+
+  const installFrag = document.createDocumentFragment();
+  const lumpFrag = document.createDocumentFragment();
+  let installCount = 0;
+  let lumpCount = 0;
+
   rows.forEach((r,i)=>{
+    const count = r.installments || 1;
     const div=document.createElement('div');
     div.className='expense-row';
     div.innerHTML=`
@@ -536,14 +539,48 @@ function renderExpenseRows(){
       </div>
       <div class="expense-row-bottom">
         <select class="card-select" onchange="updateExpenseCard(${i},this.value)">${buildCardOptions(r.card||'')}</select>
+        <select class="install-select" onchange="updateExpenseInstallments(${i},this.value)">
+          <option value="1" ${count===1?'selected':''}>一括</option>
+          <option value="2" ${count===2?'selected':''}>2回</option>
+          <option value="3" ${count===3?'selected':''}>3回</option>
+          <option value="5" ${count===5?'selected':''}>5回</option>
+          <option value="6" ${count===6?'selected':''}>6回</option>
+          <option value="10" ${count===10?'selected':''}>10回</option>
+          <option value="12" ${count===12?'selected':''}>12回</option>
+          <option value="24" ${count===24?'selected':''}>24回</option>
+        </select>
         <div class="amount-input-wrap">
           <span class="yen-sym">¥</span>
           <input class="amount-input" type="number" min="0" value="${r.amount||''}" placeholder="0"
             oninput="updateExpenseAmount(${i},this.value)" onblur="checkDuplicate(${i})">
         </div>
       </div>`;
-    wrap.appendChild(div);
+    
+    if (count > 1) {
+      installFrag.appendChild(div);
+      installCount++;
+    } else {
+      lumpFrag.appendChild(div);
+      lumpCount++;
+    }
   });
+
+  // 分割払いを一番上に表示
+  if (installCount > 0) {
+    const header = document.createElement('div');
+    header.className = 'installments-header';
+    header.innerHTML = `<svg width="12" height="12" viewBox="0 0 12 12"><path d="M1.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0zm4.5-2.5a.75.75 0 0 0-1.5 0v3c0 .414.336.75.75.75h2.5a.75.75 0 0 0 0-1.5h-1.75v-2.25z" fill="var(--accent)"/></svg>分割払い (${installCount}件)`;
+    wrap.appendChild(header);
+    wrap.appendChild(installFrag);
+  }
+  if (lumpCount > 0 && installCount > 0) {
+    const header = document.createElement('div');
+    header.className = 'installments-header';
+    header.style.cssText = 'color:var(--text3);background:var(--surface2);margin-top:8px;';
+    header.innerHTML = `一括払い (${lumpCount}件)`;
+    wrap.appendChild(header);
+  }
+  wrap.appendChild(lumpFrag);
   updateExpenseTotal();
 }
 
@@ -572,7 +609,7 @@ function renderIncomeRows(){
 }
 
 // ======================================================================
-// UNDO STACK（軽量：最大10スナップショット、JSON文字列で保持）
+// UNDO STACK
 // ======================================================================
 const UNDO_MAX=10;
 let undoStack=[];
@@ -607,7 +644,6 @@ function updateExpense(i,field,val){
   monthData[key][i][field]=(field==='amount'||field==='day')?(parseFloat(val)||0):val;
   updateExpenseTotal();updateSummary();scheduleAutoSave();
 }
-// カード変更：undoスタック保存＋重複チェック
 function updateExpenseCard(i,val){
   const key=getKey();
   if(!monthData[key])monthData[key]=[];
@@ -615,6 +651,14 @@ function updateExpenseCard(i,val){
   monthData[key][i].card=val;
   updateExpenseTotal();updateSummary();scheduleAutoSave();
   checkDuplicate(i);
+}
+function updateExpenseInstallments(i,val){
+  const key=getKey();
+  if(!monthData[key])monthData[key]=[];
+  pushUndo();
+  monthData[key][i].installments=parseInt(val, 10)||1;
+  renderExpenseRows(); // UIの位置が変わる可能性があるので再描画
+  updateExpenseTotal();updateSummary();scheduleAutoSave();
 }
 function updateExpenseAmount(i,val){
   const key=getKey();
@@ -625,12 +669,8 @@ function updateExpenseAmount(i,val){
 }
 
 // ======================================================================
-// ★ 重複チェック
-// 条件：同じカード名 ＋ 引き落とし日(day)が同じ ＋ 内容(item)が同じ
+// 重複チェック
 // ======================================================================
-// 利用日と締め日から「引き落とし月オフセット」を返す
-// 締め日以内の利用 → 翌月引落(offset=1)、締め日超の利用 → 翌々月引落(offset=2)
-// closeDay='last'(末日締め) の場合は常にoffset=1（当月末まで全て翌月引落）
 function getPayMonthOffset(useDay, closeDay){
   if(closeDay==='last'||closeDay===0||closeDay===99) return 1;
   return (useDay <= closeDay) ? 1 : 2;
@@ -652,17 +692,19 @@ function checkDuplicate(i){
     if(!prev||!prev.item||!prev.card)continue;
     if(prev.card!==cur.card)continue;
     if(prev.item.trim()!==cur.item.trim())continue;
+    
+    // 分割回数が異なる場合は無視
+    if((prev.installments||1) !== (cur.installments||1))continue;
 
     const prevCard=settings.cards.find(c=>c.name===prev.card);
     if(!prevCard)continue;
     const prevOffset=getPayMonthOffset(prev.day||1, prevCard.closeDay);
 
-    // 引き落とし月（offset）が同じ場合のみ重複とみなす
     if(prevOffset===curOffset){
       const payMonthLabel=`翌${curOffset===2?'々':''}月${curCard.day}日引落`;
       const msgEl=document.getElementById('dup-msg');
       msgEl.innerHTML=`<span class="dup-highlight">${escHtml(prev.item)}</span>（${escHtml(prev.card)}・${payMonthLabel}）が既に入力されています。<br><br>
-        既存：<span class="dup-highlight">${fmtAmt(prev.amount)}</span>　追加：<span class="dup-highlight">${fmtAmt(cur.amount)}</span><br>
+        既存：<span class="dup-highlight">${fmtAmt(prev.amount)}</span> 追加：<span class="dup-highlight">${fmtAmt(cur.amount)}</span><br>
         合計：<span class="dup-highlight">${fmtAmt(prev.amount+cur.amount)}</span><br><br>
         金額を合算しますか？`;
       document.getElementById('dup-yes-btn').onclick=()=>{
@@ -690,7 +732,7 @@ function addExpenseRow(){
   if(!monthData[key])monthData[key]=[];
   pushUndo();
   const defaultCard=settings.cards[0]?.name||'';
-  monthData[key].push({day:todayDay(),item:'',card:defaultCard,amount:0});
+  monthData[key].push({day:todayDay(),item:'',card:defaultCard,amount:0,installments:1});
   renderExpenseRows();scheduleAutoSave();
 }
 function deleteExpense(i){
@@ -726,144 +768,137 @@ function updateSummary(){
 }
 
 // ======================================================================
-// SIMULATOR
-// ★ 今日から3ヶ月分（今月・来月・再来月）を常に対象に含める
-// ★ クレジットカードの支出は「翌月の引き落とし日」に計上
+// SIMULATOR (Catch-Up & Installments Integration)
 // ======================================================================
 
-// ★★ 修正箇所：今日から3ヶ月分のキーを常に含める
-function getSimMonths(){
-  const now=new Date();
-  const set=new Set();
-
-  // 今日から3ヶ月分（今月・来月・再来月）を固定で追加
-  for(let i=0;i<3;i++){
-    let y=now.getFullYear();
-    let m=now.getMonth()+i;
-    if(m>11){m-=12;y++;}
-    set.add(`${y}-${pad(m+1)}`);
-  }
-
-  // monthDataに入力済みデータがある月も追加（シミュレーターの精度向上のため）
-  Object.keys(monthData).forEach(k=>{
-    if((monthData[k]||[]).length>0)set.add(k);
-  });
-  Object.keys(incomeData).forEach(k=>{
-    if(Object.keys(incomeData[k]||{}).length>0)set.add(k);
-  });
-
-  // ★ シミュレーターには今月〜3ヶ月後の範囲のみ表示（過去月は除外）
-  // 引き落とし日の計算のためにカード利用月（monthData）は全て参照するが、
-  // イベント表示は今日以降のみに絞る（buildSimEvents内のtodayMidnight判定で制御）
-  return [...set].sort();
-}
-
-// 利用年月・利用日・締め日から引き落とし年月を返す
-// 末日締め → 翌月, 固定締め日以内 → 翌月, 固定締め日超 → 翌々月
 function getPayYearMonth(useYear,useMonth,useDay,closeDay){
   const isLast=(closeDay==='last'||closeDay===0||closeDay===99);
-  let offset;
-  if(isLast){
-    offset=1; // 末日締め：当月全て翌月引き落とし
-  }else{
-    offset=(useDay<=closeDay)?1:2; // 締め日以内→翌月, 超過→翌々月
-  }
+  let offset=(isLast)?1:(useDay<=closeDay)?1:2;
   let pm=useMonth+offset;
   let py=useYear;
   while(pm>11){pm-=12;py++;}
   return{year:py,month:pm};
 }
 
-// ★★ 修正：締め日を考慮して各明細行ごとに引き落とし年月を決定
+// 過去のデータも含めて、指定範囲内のすべてのイベント（支払い・収入）を生成
+function generateRawEvents(startTs, endTs) {
+  const events = [];
+  const cardBillingMap = {}; // key: "cardName|YYYY-MM"
+
+  // 1. 全ての月のカード利用を走査（過去の分割払いが現在に影響するため）
+  Object.keys(monthData).forEach(mk => {
+    const [y, m] = mk.split('-').map(Number);
+    const month = m - 1;
+    const rows = monthData[mk] || [];
+
+    rows.forEach(r => {
+      if (!r.card || r.card === '') return;
+      const card = settings.cards.find(c => c.name === r.card);
+      if (!card) return;
+      const useDay = parseInt(r.day) || 1;
+      const amt = parseFloat(r.amount) || 0;
+      if (amt <= 0) return;
+
+      const count = r.installments || 1;
+      const baseAmt = Math.floor(amt / count);
+      const remainder = amt - (baseAmt * count);
+
+      // 初回支払い月を特定
+      const { year: py, month: pm } = getPayYearMonth(y, month, useDay, card.closeDay);
+
+      // 分割回数分ループして月ごとの支払額を集計
+      for (let k = 0; k < count; k++) {
+        let curr_m = pm + k;
+        let curr_y = py + Math.floor(curr_m / 12);
+        curr_m = curr_m % 12;
+
+        const billingKey = `${card.name}|${curr_y}-${pad(curr_m + 1)}`;
+        // 端数は初回支払い月(k===0)に含める
+        cardBillingMap[billingKey] = (cardBillingMap[billingKey] || 0) + baseAmt + (k === 0 ? remainder : 0);
+      }
+    });
+  });
+
+  // 集計したカード引き落としをイベント化
+  Object.entries(cardBillingMap).forEach(([key, total]) => {
+    const [cardName, ym] = key.split('|');
+    const card = settings.cards.find(c => c.name === cardName);
+    if (!card) return;
+    const [py, pm] = ym.split('-').map(Number);
+    const payDate = adjustDate(py, pm - 1, card.day, card.holiday);
+    const payTs = payDate.getTime();
+    if (payTs >= startTs && payTs <= endTs) {
+      events.push({ date: payDate, name: card.name, amount: -total, type: 'expense' });
+    }
+  });
+
+  // 2. 固定費・収入・カード未設定 の走査（対象期間を網羅）
+  const startD = new Date(startTs);
+  const endD = new Date(endTs);
+  let iterY = startD.getFullYear();
+  let iterM = startD.getMonth();
+
+  while (iterY < endD.getFullYear() || (iterY === endD.getFullYear() && iterM <= endD.getMonth())) {
+    const mk = `${iterY}-${pad(iterM + 1)}`;
+    const rows = monthData[mk] || [];
+
+    // カード未設定（月の1日付け）
+    const noCardDate = new Date(iterY, iterM, 1);
+    if (noCardDate.getTime() >= startTs && noCardDate.getTime() <= endTs) {
+      const noCard = rows.filter(r => !r.card || r.card === '').reduce((s, r) => s + (parseFloat(r.amount) || 0), 0);
+      if (noCard > 0) events.push({ date: noCardDate, name: 'カード未設定', amount: -noCard, type: 'expense' });
+    }
+
+    // 定額支払い
+    settings.fixed.forEach(f => {
+      if (f.amount > 0) {
+        const adj = adjustDate(iterY, iterM, f.day, f.holiday);
+        const adjTs = adj.getTime();
+        if (adjTs >= startTs && adjTs <= endTs) {
+          events.push({ date: adj, name: f.name, amount: -f.amount, type: 'expense' });
+        }
+      }
+    });
+
+    // 収入
+    settings.income.forEach(inc => {
+      const adj = adjustIncomeDate(iterY, iterM, inc.day, inc.holiday);
+      const adjTs = adj.getTime();
+      if (adjTs >= startTs && adjTs <= endTs) {
+        let amount = 0;
+        if (incomeData[mk]?.[inc.name]) amount = parseFloat(incomeData[mk][inc.name]) || 0;
+        if (!amount && inc.defaultAmount && inc.defaultAmount > 0) amount = inc.defaultAmount;
+        if (!amount && inc.amount > 0) amount = inc.amount;
+        if (amount > 0) events.push({ date: adj, name: inc.name, amount: amount, type: 'income' });
+        else events.push({ date: adj, name: inc.name + '（金額未設定）', amount: 0, type: 'income_unknown' });
+      }
+    });
+
+    iterM++;
+    if (iterM > 11) { iterM = 0; iterY++; }
+  }
+
+  // 日付順にソート（同じ日の場合は収入を先に）
+  events.sort((a, b) => a.date - b.date || (a.type === 'income' ? -1 : 1));
+  return events;
+}
+
+// シミュレーターUI用イベント生成
 function buildSimEvents(startBal){
-  const events=[];
   const today=new Date();
   const todayMidnight=new Date(today.getFullYear(),today.getMonth(),today.getDate());
 
-  // 表示上限：今日から3ヶ月後の月末
   let limitMonth=today.getMonth()+3;
   let limitYear=today.getFullYear();
   if(limitMonth>11){limitMonth-=12;limitYear++;}
   const limitDate=new Date(limitYear,limitMonth+1,0);
 
+  // 今日から3ヶ月後までのイベントを取得
+  const rawEvents = generateRawEvents(todayMidnight.getTime(), limitDate.getTime());
+  
+  const events=[];
   events.push({date:today,name:'現在残高',amount:0,type:'start',balance:startBal});
-
-  // ── カード引き落とし集計 ──────────────────────────────
-  // key: "カード名|YYYY-MM" → 合計金額
-  // 各明細行の利用日と締め日を個別に比較して引き落とし月を決定する
-  const cardBillingMap={};
-
-  getSimMonths().forEach(mk=>{
-    const[y,m]=mk.split('-').map(Number);
-    const month=m-1;
-    const rows=monthData[mk]||[];
-
-    rows.forEach(r=>{
-      if(!r.card||r.card==='')return; // カード未設定は別処理
-      const card=settings.cards.find(c=>c.name===r.card);
-      if(!card)return;
-      const useDay=parseInt(r.day)||1;
-      const amt=parseFloat(r.amount)||0;
-      if(amt<=0)return;
-
-      // 締め日に基づいて引き落とし年月を計算
-      const{year:py,month:pm}=getPayYearMonth(y,month,useDay,card.closeDay);
-      const billingKey=`${r.card}|${py}-${pad(pm+1)}`;
-      cardBillingMap[billingKey]=(cardBillingMap[billingKey]||0)+amt;
-    });
-  });
-
-  // 集計したカード引き落としをイベントに変換
-  Object.entries(cardBillingMap).forEach(([key,total])=>{
-    const[cardName,ym]=key.split('|');
-    const card=settings.cards.find(c=>c.name===cardName);
-    if(!card)return;
-    const[py,pm]=ym.split('-').map(Number);
-    const payDate=adjustDate(py,pm-1,card.day,card.holiday);
-    const payMidnight=new Date(payDate.getFullYear(),payDate.getMonth(),payDate.getDate());
-    if(payMidnight<todayMidnight)return;
-    if(payMidnight>limitDate)return;
-    events.push({date:payDate,name:card.name,amount:-total,type:'expense'});
-  });
-
-  // ── カード未設定の支出・定額・収入 ─────────────────────
-  getSimMonths().forEach(mk=>{
-    const[y,m]=mk.split('-').map(Number);
-    const month=m-1;
-    const rows=monthData[mk]||[];
-
-    // カード未設定の支出：その月の1日付けで計上
-    const noCardDate=new Date(y,month,1);
-    if(noCardDate>=todayMidnight&&noCardDate<=limitDate){
-      const noCard=rows.filter(r=>!r.card||r.card==='').reduce((s,r)=>s+(parseFloat(r.amount)||0),0);
-      if(noCard>0)events.push({date:noCardDate,name:'カード未設定',amount:-noCard,type:'expense'});
-    }
-
-    // 定額支払い：引き落とし日が今日以降かつ上限以内のみ
-    settings.fixed.forEach(f=>{
-      if(f.amount>0){
-        const adj=adjustDate(y,month,f.day,f.holiday);
-        const adjMidnight=new Date(adj.getFullYear(),adj.getMonth(),adj.getDate());
-        if(adjMidnight<todayMidnight)return;
-        if(adjMidnight>limitDate)return;
-        events.push({date:adj,name:f.name,amount:-f.amount,type:'expense'});
-      }
-    });
-
-    // 収入：振り込み日が今日以降かつ上限以内のみ
-    settings.income.forEach(inc=>{
-      const adj=adjustIncomeDate(y,month,inc.day,inc.holiday);
-      const adjMidnight=new Date(adj.getFullYear(),adj.getMonth(),adj.getDate());
-      if(adjMidnight<todayMidnight)return;
-      if(adjMidnight>limitDate)return;
-      let amount=0;
-      if(incomeData[mk]?.[inc.name])amount=parseFloat(incomeData[mk][inc.name])||0;
-      if(!amount&&inc.defaultAmount&&inc.defaultAmount>0)amount=inc.defaultAmount;
-      if(!amount&&inc.amount>0)amount=inc.amount;
-      if(amount>0)events.push({date:adj,name:inc.name,amount:amount,type:'income'});
-      else events.push({date:adj,name:inc.name+'（金額未設定）',amount:0,type:'income_unknown'});
-    });
-  });
+  rawEvents.forEach(e => events.push(e));
 
   events.sort((a,b)=>{
     if(a.type==='start')return -1;if(b.type==='start')return 1;
@@ -872,15 +907,64 @@ function buildSimEvents(startBal){
     if(b.type==='income'&&a.type!=='income')return 1;
     return 0;
   });
+
   let bal=startBal;
   events.forEach(e=>{if(e.type!=='start'){bal+=e.amount;e.balance=bal;}});
   return events;
 }
 
+// 起動時の自動残高キャッチアップ
+function processCatchUp(savedBal) {
+  const today = new Date();
+  const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime();
+
+  if (!lastCalculatedDate) {
+    lastCalculatedDate = todayMidnight;
+    return savedBal;
+  }
+
+  if (lastCalculatedDate < todayMidnight) {
+    // 最後に残高を計算した日の「翌日」から「昨日」までの間に発生した引き落とし等を抽出
+    const pastEvents = generateRawEvents(lastCalculatedDate + 1, todayMidnight - 1);
+    
+    let catchUpAmount = 0;
+    let catchUpCount = 0;
+    pastEvents.forEach(e => {
+      catchUpAmount += e.amount;
+      catchUpCount++;
+    });
+
+    if (catchUpCount > 0) {
+      const newBal = savedBal + catchUpAmount;
+      lastCalculatedDate = todayMidnight;
+      
+      setTimeout(() => {
+        showToast(`📅 過去の予定(${catchUpCount}件)を反映し、残高を更新しました`, 'success');
+        scheduleAutoSave(); // 更新した残高と日付を保存
+      }, 800);
+      
+      return newBal;
+    } else {
+      // イベントがなくても基準日を更新
+      lastCalculatedDate = todayMidnight;
+      saveToStorage();
+      return savedBal;
+    }
+  }
+  return savedBal;
+}
+
+// 残高入力時の処理（自動保存対応）
+function handleBalanceInput() {
+  const today = new Date();
+  lastCalculatedDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime();
+  scheduleSimCalc();
+  scheduleAutoSave();
+}
+
 let simCalcTimer=null;
 function scheduleSimCalc(){clearTimeout(simCalcTimer);simCalcTimer=setTimeout(renderSimulator,600);}
 
-// ★★ 修正箇所：sim-info に「今日〜3ヶ月後まで」の範囲を表示
 function renderSimulator(){
   const startBal=parseFloat(document.getElementById('current-balance').value)||0;
   const now=new Date();
@@ -902,7 +986,7 @@ function renderSimulator(){
     let rowCls='sim-row';
     if(isStart)rowCls+=' today-row';
     if(!isStart&&e.balance<0)rowCls+=' warn-row';
-    const dateStr=isStart?fmtDate(e.date)+'　現在':fmtDate(e.date);
+    const dateStr=isStart?fmtDate(e.date)+' 現在':fmtDate(e.date);
     let amountStr='',amtCls='sim-amount';
     if(e.type==='start'){amountStr='';}
     else if(e.type==='income'||e.type==='income_unknown'){amountStr=e.amount>0?`+${fmtAmt(e.amount)}`:'金額未設定';amtCls+=' pos';}
@@ -931,14 +1015,12 @@ function renderSettingsPage(){
     </div>`;
     ccDiv.appendChild(div);
   });
-
   const fixedDiv=document.getElementById('fixed-settings-rows');fixedDiv.innerHTML='';
   settings.fixed.forEach((f,i)=>{
     const div=document.createElement('div');div.className='settings-item';
     div.innerHTML=`<div class="settings-item-info"><div class="settings-item-name">${escHtml(f.name)}</div><div class="settings-item-sub">毎月${f.day}日 ／ ${fmtAmt(f.amount)} ／ 土日祝は${f.holiday==='next'?'翌平日':'前の平日'}</div></div><div class="settings-item-actions"><button class="settings-btn edit" onclick="openEditModal('fixed',${i})">編集</button><button class="settings-btn del" onclick="removeFixedSetting(${i})">削除</button></div>`;
     fixedDiv.appendChild(div);
   });
-
   const incDiv=document.getElementById('income-settings-rows');incDiv.innerHTML='';
   settings.income.forEach((inc,i)=>{
     const div=document.createElement('div');div.className='settings-item';
@@ -946,20 +1028,17 @@ function renderSettingsPage(){
     div.innerHTML=`<div class="settings-item-info"><div class="settings-item-name">${escHtml(inc.name)}</div><div class="settings-item-sub">毎月${inc.day}日 ／ 土日祝は${inc.holiday==='prev'?'前の平日':'翌平日'}${defAmt}</div></div><div class="settings-item-actions"><button class="settings-btn edit" onclick="openEditModal('income',${i})">編集</button><button class="settings-btn del" onclick="removeIncomeSetting(${i})">削除</button></div>`;
     incDiv.appendChild(div);
   });
-
   const tsEl=document.getElementById('save-ts');if(tsEl)tsEl.textContent=lastSaveTs||'';
 }
 function saveSettings(){renderIncomeRows();saveToStorage();showToast('💾 設定を保存しました','success');}
 
 // ======================================================================
 // EDIT MODAL
-// ★ クレジットカード編集に締め日フィールドを追加
 // ======================================================================
 function openEditModal(type,idx){
   const isNew=idx===null;
   const data=isNew?null:type==='cc'?settings.cards[idx]:type==='fixed'?settings.fixed[idx]:settings.income[idx];
   let title='',bodyHtml='';
-
   if(type==='cc'){
     title=isNew?'カードを追加':'カードを編集';
     const isLast=(data?.closeDay==='last'||data?.closeDay===0||data?.closeDay===99);
@@ -1118,7 +1197,15 @@ const LS_KEY='kakeibo_v3';
 let lastSaveTs='';
 function saveToStorage(){
   try{
-    const payload={version:3,savedAt:new Date().toISOString(),monthData,incomeData,settings,simBalance:document.getElementById('current-balance')?.value||'77497'};
+    const payload={
+      version:3,
+      savedAt:new Date().toISOString(),
+      monthData,
+      incomeData,
+      settings,
+      simBalance:document.getElementById('current-balance')?.value||'0',
+      lastCalculatedDate:lastCalculatedDate
+    };
     localStorage.setItem(LS_KEY,JSON.stringify(payload));
     updateSaveTs(payload.savedAt);
   }catch(e){showToast('保存に失敗しました','error');}
@@ -1131,6 +1218,7 @@ function loadFromStorage(){
     if(p.incomeData)incomeData=p.incomeData;
     if(p.settings)settings=p.settings;
     if(p.savedAt)updateSaveTs(p.savedAt);
+    if(p.lastCalculatedDate)lastCalculatedDate=p.lastCalculatedDate;
     return p;
   }catch(e){return false;}
 }
@@ -1147,7 +1235,16 @@ function manualSave(){saveToStorage();showToast('💾 保存しました','succe
 // DOWNLOAD / UPLOAD
 // ======================================================================
 function downloadData(){
-  const payload={version:3,exportedAt:new Date().toISOString(),appName:'家計簿管理アプリ',monthData,incomeData,settings,simBalance:document.getElementById('current-balance')?.value||'0'};
+  const payload={
+    version:3,
+    exportedAt:new Date().toISOString(),
+    appName:'家計簿管理アプリ',
+    monthData,
+    incomeData,
+    settings,
+    simBalance:document.getElementById('current-balance')?.value||'0',
+    lastCalculatedDate:lastCalculatedDate
+  };
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
   const url=URL.createObjectURL(blob);const a=document.createElement('a');
   const now=new Date();a.href=url;a.download=`kakeibo_${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}.json`;
@@ -1180,7 +1277,18 @@ function applyImport(){
   if(p.monthData)monthData=p.monthData;
   if(p.incomeData)incomeData=p.incomeData;
   if(p.settings)settings=p.settings;
-  if(p.simBalance){const el=document.getElementById('current-balance');if(el)el.value=p.simBalance;}
+  if(p.lastCalculatedDate!==undefined){
+    lastCalculatedDate=p.lastCalculatedDate;
+  }else{
+    // 旧データインポート用（今日を基準にする）
+    const now=new Date();
+    lastCalculatedDate=new Date(now.getFullYear(),now.getMonth(),now.getDate()).getTime();
+  }
+  let bal=p.simBalance||'0';
+  bal=processCatchUp(parseFloat(bal)||0);
+  const el=document.getElementById('current-balance');
+  if(el)el.value=bal;
+
   closeModal('import-confirm-modal');pendingImport=null;
   saveToStorage();renderKakeibo();renderSettingsPage();
   showToast('⬆ 読み込みました','success');
@@ -1200,6 +1308,7 @@ function clearAllData(){
     income:[{name:'日本学生支援機構',day:11,amount:0,holiday:'prev',defaultAmount:113271},{name:'水春',day:15,amount:0,holiday:'prev',defaultAmount:0}]
   };
   lastSaveTs='';closeModal('clear-confirm-modal');
+  lastCalculatedDate=null;
   renderKakeibo();renderSettingsPage();
   showToast('🗑 消去しました','warn');
 }
@@ -1220,21 +1329,32 @@ function showToast(msg,type=''){
 // ======================================================================
 function init(){
   const loaded=loadFromStorage();
-  if(loaded?.simBalance){const el=document.getElementById('current-balance');if(el)el.value=loaded.simBalance;}
+  let currentBal = 77497;
+  
+  if(loaded?.simBalance!==undefined){
+    currentBal = parseFloat(loaded.simBalance)||0;
+  }
+  
+  // アプリ起動時のキャッチアップ計算（開いていなかった期間の引き落としを反映）
+  currentBal = processCatchUp(currentBal);
+  
+  const el=document.getElementById('current-balance');
+  if(el)el.value=currentBal;
+
   if(!loaded){
     const key=`${currentYear}-${pad(currentMonth+1)}`;
     monthData[key]=[
-      {day:5, item:'Amazon定期購入',card:'Amazon Mastercard',amount:12000},
-      {day:8, item:'Amazon購入',    card:'Amazon Mastercard',amount:8500},
-      {day:12,item:'Kindle本',      card:'Amazon Mastercard',amount:2000},
-      {day:3, item:'食料品',        card:'イオンカード',     amount:15000},
-      {day:10,item:'日用品',        card:'イオンカード',     amount:8000},
-      {day:18,item:'外食',          card:'イオンカード',     amount:6500},
-      {day:25,item:'食料品',        card:'イオンカード',     amount:4252},
-      {day:2, item:'航空券',        card:'JALカード',  amount:9937},
-      {day:7, item:'新幹線',        card:'J-WESTカード',     amount:15000},
-      {day:15,item:'定期券',        card:'J-WESTカード',     amount:17080},
-      {day:1, item:'サブスク各種',  card:'JP BANKカード',    amount:16400},
+      {day:5, item:'Amazon定期購入',card:'Amazon Mastercard',amount:12000, installments:1},
+      {day:8, item:'Amazon購入',    card:'Amazon Mastercard',amount:8500, installments:1},
+      {day:12,item:'Kindle本',      card:'Amazon Mastercard',amount:2000, installments:1},
+      {day:3, item:'食料品',        card:'イオンカード',     amount:15000, installments:1},
+      {day:10,item:'日用品',        card:'イオンカード',     amount:8000, installments:1},
+      {day:18,item:'外食',          card:'イオンカード',     amount:6500, installments:1},
+      {day:25,item:'食料品',        card:'イオンカード',     amount:4252, installments:1},
+      {day:2, item:'航空券',        card:'JALカード',  amount:9937, installments:1},
+      {day:7, item:'新幹線',        card:'J-WESTカード',     amount:15000, installments:1},
+      {day:15,item:'定期券',        card:'J-WESTカード',     amount:17080, installments:1},
+      {day:1, item:'サブスク各種',  card:'JP BANKカード',    amount:16400, installments:1},
     ];
     incomeData[key]={'水春':49950};
   }
