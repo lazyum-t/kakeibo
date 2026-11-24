@@ -14,6 +14,7 @@
     --red:#E53935; --red-light:#FEF0EF;
     --green:#1AAD5E; --green-light:#EDFAF3;
     --yellow:#F59E0B; --yellow-light:#FFFBEB;
+    --purple:#7C3AED; --purple-light:#F5F3FF;
     --shadow-sm:0 1px 4px rgba(15,25,35,.07); --shadow:0 2px 12px rgba(15,25,35,.09);
     --r:14px; --r-sm:10px; --tab-h:64px; --header-h:56px;
   }
@@ -36,6 +37,9 @@
   .page{display:none;padding:12px 12px 24px;}
   .page.active{display:block;}
 
+  .top-add-pay-btn{width:100%;padding:12px 16px;margin-bottom:10px;background:var(--accent);color:#fff;border:none;border-radius:var(--r);font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 3px 10px rgba(37,99,235,.25);transition:opacity .15s,transform .1s;}
+  .top-add-pay-btn:active{opacity:.9;transform:scale(.99);}
+
   .summary-strip{background:var(--surface);border-radius:var(--r);padding:14px 16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;margin-bottom:12px;box-shadow:var(--shadow-sm);}
   .sum-item{text-align:center;}
   .sum-label{font-size:10px;color:var(--text3);font-weight:500;margin-bottom:3px;}
@@ -56,6 +60,7 @@
   .expense-row{padding:8px 10px 8px 6px;border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:6px;}
   .expense-row:last-child{border-bottom:none;}
   .expense-row.is-installment{background:var(--accent-light);}
+  .expense-row.is-fixed-card{background:var(--purple-light);}
   .expense-row-top{display:grid;grid-template-columns:36px 1fr 28px;align-items:center;gap:6px;}
   .expense-row-bottom{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,0.85fr) minmax(0,1fr);align-items:center;gap:5px;padding-left:42px;}
   .day-badge{width:30px;height:30px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--text2);flex-shrink:0;}
@@ -64,6 +69,8 @@
   .item-input::placeholder{color:var(--text3);}
   .del-btn{width:28px;height:28px;border:none;background:none;cursor:pointer;color:var(--text3);border-radius:6px;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
   .del-btn:active{background:var(--red-light);color:var(--red);}
+  .edit-icon-btn{width:28px;height:28px;border:none;background:none;cursor:pointer;color:var(--purple);border-radius:6px;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .edit-icon-btn:active{background:rgba(124,58,237,.12);}
   .card-select{border:1px solid var(--border);background:var(--surface2);border-radius:8px;padding:5px 20px 5px 6px;font-family:inherit;font-size:11px;font-weight:600;color:var(--text2);outline:none;cursor:pointer;width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23A8B3C0' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 6px center;}
   .card-select:focus{border-color:var(--accent);}
   .installment-select{padding:5px 18px 5px 5px;font-size:10px;background-position:right 4px center;}
@@ -86,12 +93,17 @@
   .add-row-btn{width:100%;padding:11px 14px;background:none;border:none;border-top:1px dashed var(--border);cursor:pointer;color:var(--accent);font-size:13px;font-family:inherit;font-weight:700;text-align:center;display:flex;align-items:center;justify-content:center;gap:6px;}
   .add-row-btn:active{background:var(--accent-light);}
 
-  .sim-balance-card{background:linear-gradient(135deg,#1d4ed8,#2563eb);border-radius:var(--r);padding:18px 16px;margin-bottom:12px;color:#fff;box-shadow:0 4px 20px rgba(37,99,235,.3);}
+  .sim-balance-card{background:linear-gradient(135deg,#1d4ed8,#2563eb);border-radius:var(--r);padding:18px 16px 14px;margin-bottom:12px;color:#fff;box-shadow:0 4px 20px rgba(37,99,235,.3);}
   .sim-balance-label{font-size:11px;opacity:.8;margin-bottom:4px;}
   .sim-balance-row{display:flex;align-items:center;gap:8px;}
   .sim-balance-input{font-size:26px;font-weight:900;background:transparent;border:none;color:#fff;font-family:inherit;outline:none;flex:1;min-width:0;}
   .sim-recalc-btn{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);color:#fff;padding:7px 14px;border-radius:20px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;}
   .sim-recalc-btn:active{background:rgba(255,255,255,.35);}
+  .sim-today-toggle{margin-top:12px;padding-top:11px;border-top:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  .sim-today-toggle-label{font-size:12px;font-weight:600;opacity:.92;}
+  .sim-seg{display:inline-flex;background:rgba(15,25,35,.22);border-radius:18px;padding:3px;gap:2px;}
+  .sim-seg-btn{border:none;background:transparent;color:rgba(255,255,255,.8);font-family:inherit;font-size:11.5px;font-weight:700;padding:5px 12px;border-radius:14px;cursor:pointer;transition:all .15s;}
+  .sim-seg-btn.active{background:#fff;color:var(--accent);box-shadow:0 1px 4px rgba(15,25,35,.15);}
   .sim-list-card{background:var(--surface);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm);}
   .sim-month-header{background:var(--accent-light);padding:7px 14px;font-size:11px;font-weight:700;color:var(--accent);border-bottom:1px solid var(--border);}
   .sim-row{display:grid;grid-template-columns:72px 1fr 84px;align-items:center;padding:11px 14px;border-bottom:1px solid var(--border);gap:8px;}
@@ -111,12 +123,15 @@
   .settings-item{display:flex;align-items:center;padding:13px 14px;border-bottom:1px solid var(--border);gap:10px;}
   .settings-item:last-of-type{border-bottom:none;}
   .settings-item-info{flex:1;min-width:0;}
-  .settings-item-name{font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .settings-item-name{font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
   .settings-item-sub{font-size:11px;color:var(--text2);}
   .settings-item-actions{display:flex;gap:6px;flex-shrink:0;}
   .settings-btn{padding:6px 12px;border-radius:8px;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;border:none;}
   .settings-btn.edit{background:var(--accent-light);color:var(--accent);}
   .settings-btn.del{background:var(--red-light);color:var(--red);}
+  .paytype-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;display:inline-flex;align-items:center;gap:3px;flex-shrink:0;}
+  .paytype-badge.bank{background:var(--surface2);color:var(--text2);border:1px solid var(--border);}
+  .paytype-badge.card{background:var(--purple-light);color:var(--purple);border:1px solid rgba(124,58,237,.2);}
   .settings-add-row{width:100%;padding:12px 14px;background:none;border:none;border-top:1px dashed var(--border);cursor:pointer;color:var(--accent);font-size:13px;font-family:inherit;font-weight:600;text-align:left;display:flex;align-items:center;gap:6px;}
   .settings-add-row:active{background:var(--accent-light);}
   .settings-page-save{width:100%;padding:14px;background:var(--accent);color:#fff;border:none;border-radius:var(--r);font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;margin-top:8px;box-shadow:0 4px 14px rgba(37,99,235,.3);}
@@ -147,12 +162,20 @@
   .form-label{font-size:12px;font-weight:700;color:var(--text2);margin-bottom:6px;display:block;}
   .form-input{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:11px 12px;font-family:inherit;font-size:15px;color:var(--text);background:var(--surface);outline:none;transition:border-color .15s;}
   .form-input:focus{border-color:var(--accent);}
-  .form-row-2col{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .form-row-2col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
   .form-row-3col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
   .modal-btn-primary{width:100%;padding:14px;background:var(--accent);color:#fff;border:none;border-radius:12px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;}
   .modal-btn-primary:active{opacity:.9;}
   .modal-btn-ghost{width:100%;padding:14px;background:var(--surface2);color:var(--text2);border:1px solid var(--border);border-radius:12px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;}
   .modal-btn-danger{width:100%;padding:14px;background:var(--red-light);color:var(--red);border:none;border-radius:12px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;}
+
+  /* 最近の支払い候補チップ */
+  .recent-pay-section{margin-bottom:14px;padding:10px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:12px;}
+  .recent-pay-label{font-size:11px;font-weight:700;color:var(--text2);margin-bottom:8px;display:flex;align-items:center;gap:4px;}
+  .recent-pay-chips{display:flex;flex-wrap:wrap;gap:6px;}
+  .recent-pay-chip{border:1px solid var(--border);background:var(--surface);border-radius:18px;padding:6px 11px;font-family:inherit;font-size:12px;font-weight:600;color:var(--text);cursor:pointer;display:inline-flex;align-items:center;gap:5px;max-width:100%;transition:all .15s;}
+  .recent-pay-chip:active{background:var(--accent-light);border-color:var(--accent);color:var(--accent);}
+  .recent-pay-chip-sub{font-size:10px;font-weight:600;color:var(--text2);background:var(--surface2);padding:1px 6px;border-radius:10px;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 
   .dup-msg{font-size:14px;color:var(--text);line-height:1.6;margin-bottom:16px;}
   .dup-highlight{font-weight:700;color:var(--accent);}
@@ -182,6 +205,7 @@
   /* 締め日 末日チェックボックス行 */
   .close-last-row{display:flex;align-items:center;gap:6px;margin-top:6px;}
   .close-last-row label{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:4px;cursor:pointer;}
+  .form-hint{font-size:11px;color:var(--text3);margin-top:5px;line-height:1.5;}
 </style>
 </head>
 <body>
@@ -203,6 +227,7 @@
 
     <!-- 家計簿 -->
     <div id="page-kakeibo" class="page active">
+      <button class="top-add-pay-btn" onclick="openAddPaymentModal()">＋ 支払いを追加</button>
       <div class="summary-strip">
         <div class="sum-item"><div class="sum-label">収入</div><div class="sum-val income" id="total-income">¥0</div></div>
         <div class="sum-item"><div class="sum-label">支出</div><div class="sum-val expense" id="total-expense">¥0</div></div>
@@ -227,10 +252,14 @@
           <div class="installment-subsection-title">📆 今月の引き落とし分（分割払い）</div>
           <div id="installment-rows"></div>
           <div id="installment-empty-msg" class="installment-subsection-empty" style="display:none">今月の分割引き落としはありません</div>
+          <div id="fixed-card-subsection" style="display:none">
+            <div class="section-divider"></div>
+            <div class="installment-subsection-title" style="color:var(--purple);">🔄 毎月の定額クレカ払い</div>
+            <div id="fixed-card-rows"></div>
+          </div>
           <div class="section-divider"></div>
           <div class="installment-subsection-title" style="color:var(--text2);">📝 今月の利用明細・一括支払い</div>
           <div id="expense-rows"></div>
-          <!-- ＋行を追加 ボタンを ＋支払いを追加 に変更し、モーダル起動に紐付け -->
           <button class="add-row-btn" onclick="openAddPaymentModal()" style="font-weight: 700; border-top: 1px solid var(--border);">＋ 支払いを追加</button>
         </div>
       </div>
@@ -252,9 +281,16 @@
       <div class="sim-balance-card">
         <div class="sim-balance-label">現在の残高</div>
         <div class="sim-balance-row">
-          <input type="number" class="sim-balance-input" id="current-balance" value="77497" oninput="scheduleSimCalc()">
+          <input type="number" class="sim-balance-input" id="current-balance" value="77497" oninput="onSimBalanceInput()">
           <span style="font-size:16px;opacity:.8">円</span>
           <button class="sim-recalc-btn" onclick="renderSimulator()">🔄 再計算</button>
+        </div>
+        <div class="sim-today-toggle">
+          <span class="sim-today-toggle-label">今日の収支を計上</span>
+          <div class="sim-seg" role="group" aria-label="今日の収支を含めるか">
+            <button type="button" class="sim-seg-btn active" id="sim-today-yes" onclick="setSimIncludeToday(true)">含む</button>
+            <button type="button" class="sim-seg-btn" id="sim-today-no" onclick="setSimIncludeToday(false)">含まない</button>
+          </div>
         </div>
       </div>
       <div id="sim-info" style="font-size:11px;color:var(--text3);margin-bottom:10px;padding:0 2px;"></div>
@@ -276,7 +312,7 @@
         <button class="settings-add-row" onclick="openEditModal('cc',null)">＋ カードを追加</button>
       </div>
       <div class="settings-section">
-        <div class="settings-section-title">定額支払い</div>
+        <div class="settings-section-title">定額支払い（口座・クレカ）</div>
         <div id="fixed-settings-rows"></div>
         <button class="settings-add-row" onclick="openEditModal('fixed',null)">＋ 定額支払いを追加</button>
       </div>
@@ -303,12 +339,16 @@
   </nav>
 </div>
 
-<!-- 新規：支払いを追加モーダル（浮き上がりデザイン） -->
+<!-- 支払いを追加モーダル（浮き上がりデザイン） -->
 <div class="modal-overlay" id="add-payment-modal">
   <div class="modal">
     <div class="modal-handle"></div>
     <div class="modal-title">＋ 支払いを追加</div>
     <div class="modal-body">
+      <div class="recent-pay-section" id="recent-pay-section" style="display:none;">
+        <div class="recent-pay-label">🕒 最近の支払い（タップで内容・カードを自動入力）</div>
+        <div class="recent-pay-chips" id="recent-pay-chips"></div>
+      </div>
       <div class="form-row">
         <label class="form-label">内容・店名など</label>
         <input type="text" class="form-input" id="add-pay-item" placeholder="例: Amazon購入, 服など">
@@ -322,11 +362,11 @@
           <label class="form-label">金額（円）</label>
           <div style="position:relative; display:flex; align-items:center;">
             <input type="number" class="form-input" id="add-pay-amount" min="0" placeholder="0" style="padding-right:45px;">
-            <button onclick="openCalcForAddPayment()" style="position:absolute; right:10px; background:none; border:none; font-size:18px; cursor:pointer;" title="電卓を開く">🧮</button>
+            <button type="button" onclick="openCalcForAddPayment()" style="position:absolute; right:10px; background:none; border:none; font-size:18px; cursor:pointer;" title="電卓を開く">🧮</button>
           </div>
         </div>
       </div>
-      <div class="form-row-2col">
+      <div class="form-row-2col" style="margin-bottom:0;">
         <div>
           <label class="form-label">クレジットカード</label>
           <select class="form-input" id="add-pay-card" onchange="toggleAddPayInstallments(this.value)">
@@ -348,7 +388,7 @@
   </div>
 </div>
 
-<!-- 新規：削除確認カスタムダイアログ（✕ボタンや設定の削除に対応。confirm廃止） -->
+<!-- 削除確認カスタムダイアログ -->
 <div class="modal-overlay" id="delete-confirm-custom-modal">
   <div class="modal">
     <div class="modal-handle"></div>
@@ -477,7 +517,10 @@ let currentSubTab='expense';
 
 let monthData={};
 let incomeData={};
-let lastOpenedDate=''; 
+let lastOpenedDate='';
+let recentPayments=[];
+const RECENT_PAYMENTS_MAX=8;
+let simIncludeToday=true;
 
 let settings={
   cards:[
@@ -488,10 +531,10 @@ let settings={
     {name:'Amazon Mastercard', closeDay:'last', day:26, holiday:'next'},
   ],
   fixed:[
-    {name:'家賃',day:27,amount:43625,holiday:'next'},
-    {name:'大阪ガス',day:27,amount:3000,holiday:'next'},
-    {name:'関西電力',day:22,amount:5000,holiday:'next'},
-    {name:'楽天mobile',day:27,amount:2000,holiday:'next'},
+    {name:'家賃',day:27,amount:43625,holiday:'next',payType:'bank'},
+    {name:'大阪ガス',day:27,amount:3000,holiday:'next',payType:'bank'},
+    {name:'関西電力',day:22,amount:5000,holiday:'next',payType:'bank'},
+    {name:'楽天mobile',day:27,amount:2000,holiday:'next',payType:'bank'},
   ],
   income:[
     {name:'日本学生支援機構',day:11,amount:0,holiday:'prev',defaultAmount:113271},
@@ -526,11 +569,53 @@ function pad(n){return String(n).padStart(2,'0');}
 function getKey(){return `${currentYear}-${pad(currentMonth+1)}`;}
 function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function todayDay(){const now=new Date();if(currentYear===now.getFullYear()&&currentMonth===now.getMonth())return now.getDate();return '';}
+function getAddPaymentDay(){
+  const now=new Date();
+  const last=new Date(currentYear,currentMonth+1,0).getDate();
+  return Math.min(now.getDate(),last);
+}
 
 // 締め日の表示
 function fmtCloseDay(cd){
   if(cd==='last'||cd===0||cd===99)return '末日';
   return `${cd}日`;
+}
+
+// 定額支払いの支払い種別取得（既存データは口座支払い 'bank' 扱い）
+function getFixedPayType(f){
+  return (f && f.payType === 'card') ? 'card' : 'bank';
+}
+
+// 表示月の定額クレカ払い一覧を取得
+function getFixedCardExpensesForMonth(targetYear, targetMonth){
+  const lastDay = new Date(targetYear, targetMonth + 1, 0).getDate();
+  const list = [];
+  (settings.fixed || []).forEach((f, origIdx) => {
+    if (getFixedPayType(f) !== 'card') return;
+    const rawDay = parseInt(f.day) || 1;
+    const day = Math.min(Math.max(rawDay, 1), lastDay);
+    list.push({
+      origIdx,
+      name: f.name || '',
+      day,
+      card: f.card || '',
+      amount: parseFloat(f.amount) || 0,
+      cardExists: !!settings.cards.find(c => c.name === f.card)
+    });
+  });
+  list.sort((a, b) => a.day - b.day);
+  return list;
+}
+
+// 既存データ互換のための正規化
+function normalizeSettings(){
+  if (!settings || typeof settings !== 'object') settings = { cards: [], fixed: [], income: [] };
+  if (!Array.isArray(settings.cards)) settings.cards = [];
+  if (!Array.isArray(settings.fixed)) settings.fixed = [];
+  if (!Array.isArray(settings.income)) settings.income = [];
+  settings.fixed.forEach(f => {
+    if (!f.payType) f.payType = 'bank';
+  });
 }
 
 // 分割払い：合計金額を回数で均等割り（端数は初回に上乗せ）
@@ -555,9 +640,8 @@ function buildInstallmentOptions(selected){
 }
 
 // ======================================================================
+// 分割払いスケジュール計算
 // ======================================================================
-// 分割払いの引き落としスケジュールを完璧に計算する
-// 戻り値: 配列 [{ year, month, day, amount, countStr, index }] (monthは0-11)
 function getInstallmentSchedule(useYear, useMonth, useDay, cardName, totalAmount, installments) {
   const n = parseInt(installments) || 1;
   const card = settings.cards.find(c => c.name === cardName);
@@ -566,7 +650,6 @@ function getInstallmentSchedule(useYear, useMonth, useDay, cardName, totalAmount
   const day = parseInt(useDay) || 1;
   const amounts = computeInstallmentAmounts(totalAmount, n);
 
-  // 初回引き落としの年、月(0-11)を取得
   const { year: py, month: pm } = getPayYearMonth(useYear, useMonth, day, card.closeDay);
 
   const schedule = [];
@@ -578,12 +661,11 @@ function getInstallmentSchedule(useYear, useMonth, useDay, cardName, totalAmount
       curYear++;
     }
 
-    // クレカの引き落とし規則（土日祝は翌営業日など）に基づき引き落とし日(日付オブジェクト)を特定
     const actualPayDate = adjustDate(curYear, curMonth, card.day, card.holiday);
 
     schedule.push({
       year: curYear,
-      month: curMonth, // 0-11
+      month: curMonth,
       day: actualPayDate.getDate(),
       date: actualPayDate,
       amount: amounts[i],
@@ -595,14 +677,13 @@ function getInstallmentSchedule(useYear, useMonth, useDay, cardName, totalAmount
   return schedule;
 }
 
-// 表示している月（targetYear, targetMonth）に支払期日がある分割払いを全登録データから探索・抽出
 function getInstallmentsForMonth(targetYear, targetMonth) {
   const list = [];
-  
+
   Object.keys(monthData).forEach(key => {
     const [useY, useM] = key.split('-').map(Number);
-    const useMonthZero = useM - 1; // 0-11
-    
+    const useMonthZero = useM - 1;
+
     const rows = monthData[key] || [];
     rows.forEach((r, idx) => {
       const inst = parseInt(r.installments) || 1;
@@ -626,7 +707,7 @@ function getInstallmentsForMonth(targetYear, targetMonth) {
       }
     });
   });
-  
+
   list.sort((a, b) => a.dueDate - b.dueDate);
   return list;
 }
@@ -672,7 +753,6 @@ function changeMonth(delta){
 function updateMonthLabel(){document.getElementById('month-label').textContent=`${currentYear}年${currentMonth+1}月`;}
 
 // ======================================================================
-// ======================================================================
 // KAKEIBO
 // ======================================================================
 function renderKakeibo(){
@@ -691,18 +771,20 @@ function buildCardOptions(selectedCard){
   return html;
 }
 
-// 支出行の描画（一括と分割の表示調整）
 function renderExpenseRows(){
   const key=getKey();
   if(!monthData[key])monthData[key]=[];
   const rows=monthData[key];
-  
+
   const instWrap=document.getElementById('installment-rows');
+  const fixedCardSec=document.getElementById('fixed-card-subsection');
+  const fixedCardWrap=document.getElementById('fixed-card-rows');
   const wrap=document.getElementById('expense-rows');
   instWrap.innerHTML='';
+  fixedCardWrap.innerHTML='';
   wrap.innerHTML='';
 
-  // 1. 他の月や今月から自動算出された「今月の分割払い引き落とし額」を自動収集表示
+  // 1. 今月の分割払い引き落とし額を自動収集表示
   const autoInstallments = getInstallmentsForMonth(currentYear, currentMonth);
   autoInstallments.forEach(item => {
     const div = document.createElement('div');
@@ -739,13 +821,49 @@ function renderExpenseRows(){
     document.getElementById('installment-empty-msg').style.display='none';
   }
 
-  // 2. この月に利用した「一括払い」および「新規分割購入（親データ）」を描画
+  // 2. 毎月の定額クレカ払いを自動表示
+  const fixedCardList = getFixedCardExpensesForMonth(currentYear, currentMonth);
+  if (fixedCardList.length > 0) {
+    fixedCardSec.style.display = '';
+    fixedCardList.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'expense-row is-fixed-card';
+      div.style.borderLeft = '4px solid var(--purple)';
+      const cardLabel = item.card
+        ? (item.cardExists ? `💳 ${escHtml(item.card)}（利用）` : `⚠️ ${escHtml(item.card)}（未登録）`)
+        : '⚠️ カード未設定';
+      div.innerHTML = `
+        <div class="expense-row-top">
+          <div class="day-badge" style="background:var(--purple-light); border-color:var(--purple); color:var(--purple);">${item.day}</div>
+          <div style="font-size:13px; font-weight:700; display:flex; align-items:center; gap:6px; flex:1; min-width:0; overflow:hidden;">
+            <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${escHtml(item.name || '定額クレカ')}</span>
+            <span style="font-size:10px; background:var(--purple); color:#fff; padding:2px 6px; border-radius:10px; font-weight:700; flex-shrink:0;">定額</span>
+          </div>
+          <button class="edit-icon-btn" onclick="openEditModal('fixed', ${item.origIdx})" title="定額支払いを編集">✎</button>
+        </div>
+        <div class="expense-row-bottom">
+          <div style="font-size:11px; color:var(--text2); display:flex; align-items:center; gap:4px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; grid-column:span 2;">
+            ${cardLabel}
+          </div>
+          <div class="amount-input-wrap" style="color:var(--purple); font-weight:700;">
+            <span class="yen-sym" style="color:var(--purple);">¥</span>
+            <span style="font-size:14px;">${(item.amount).toLocaleString('ja-JP')}</span>
+          </div>
+        </div>
+      `;
+      fixedCardWrap.appendChild(div);
+    });
+  } else {
+    fixedCardSec.style.display = 'none';
+  }
+
+  // 3. この月に利用した「一括払い」および「新規分割購入（親データ）」を描画
   rows.forEach((r, i)=>{
     const inst = parseInt(r.installments)||1;
     const isInst = inst > 1;
     const div = document.createElement('div');
     div.className = 'expense-row' + (isInst ? ' is-installment' : '');
-    
+
     let badgeHtml = '';
     let amountStyle = '';
     let parentHint = '';
@@ -806,7 +924,6 @@ function renderIncomeRows(){
   updateIncomeTotalCell();
 }
 
-// ======================================================================
 // ======================================================================
 // UNDO STACK
 // ======================================================================
@@ -879,17 +996,93 @@ function updateInstallmentHint(i){
 }
 
 // ======================================================================
+// 最近の支払い履歴＆支払いを追加モーダル
 // ======================================================================
-// 新規：支払いを追加モーダルの処理（浮き上がりフォーム）
-// ======================================================================
+function recordRecentPayment(item, card, installments) {
+  const trimmed = (item || '').trim();
+  if (!trimmed) return;
+  const cardName = card || '';
+  const inst = cardName ? (parseInt(installments) || 1) : 1;
+  recentPayments = recentPayments.filter(r =>
+    !(r.item === trimmed && (r.card || '') === cardName && (parseInt(r.installments) || 1) === inst)
+  );
+  recentPayments.unshift({ item: trimmed, card: cardName, installments: inst });
+  if (recentPayments.length > RECENT_PAYMENTS_MAX) {
+    recentPayments = recentPayments.slice(0, RECENT_PAYMENTS_MAX);
+  }
+}
+
+function seedRecentPaymentsFromMonthData() {
+  if (recentPayments.length > 0) return;
+  const keys = Object.keys(monthData).sort().reverse();
+  const seen = new Set();
+  for (const k of keys) {
+    const rows = monthData[k] || [];
+    for (let i = rows.length - 1; i >= 0; i--) {
+      const r = rows[i];
+      const trimmed = (r.item || '').trim();
+      if (!trimmed) continue;
+      const cardName = r.card || '';
+      const inst = cardName ? (parseInt(r.installments) || 1) : 1;
+      const sig = `${trimmed}|${cardName}|${inst}`;
+      if (seen.has(sig)) continue;
+      seen.add(sig);
+      recentPayments.push({ item: trimmed, card: cardName, installments: inst });
+      if (recentPayments.length >= RECENT_PAYMENTS_MAX) return;
+    }
+  }
+}
+
+function renderRecentPaymentChips() {
+  const sec = document.getElementById('recent-pay-section');
+  const wrap = document.getElementById('recent-pay-chips');
+  if (!sec || !wrap) return;
+  if (!recentPayments || recentPayments.length === 0) {
+    sec.style.display = 'none';
+    wrap.innerHTML = '';
+    return;
+  }
+  sec.style.display = '';
+  wrap.innerHTML = recentPayments.map((rec, idx) => {
+    const subParts = [];
+    if (rec.card) subParts.push(rec.card);
+    const inst = parseInt(rec.installments) || 1;
+    if (rec.card && inst > 1) subParts.push(`${inst}回`);
+    const subHtml = subParts.length
+      ? `<span class="recent-pay-chip-sub">${escHtml(subParts.join('・'))}</span>`
+      : '';
+    return `<button type="button" class="recent-pay-chip" onclick="applyRecentPayment(${idx})"><span>${escHtml(rec.item)}</span>${subHtml}</button>`;
+  }).join('');
+}
+
+function applyRecentPayment(idx) {
+  const rec = recentPayments[idx];
+  if (!rec) return;
+  document.getElementById('add-pay-item').value = rec.item || '';
+  // 日付は必ず「追加する日」に設定
+  document.getElementById('add-pay-day').value = getAddPaymentDay();
+  // 金額は入力されないように空のままにする
+  const amtEl = document.getElementById('add-pay-amount');
+  amtEl.value = '';
+  // カードと分割回数を反映
+  const cardSel = document.getElementById('add-pay-card');
+  const validCard = rec.card && settings.cards.some(c => c.name === rec.card) ? rec.card : '';
+  cardSel.value = validCard;
+  toggleAddPayInstallments(validCard);
+  const instSel = document.getElementById('add-pay-installments');
+  if (validCard) {
+    instSel.value = String(parseInt(rec.installments) || 1);
+  }
+  amtEl.focus();
+}
+
 function openAddPaymentModal() {
   const dayInput = document.getElementById('add-pay-day');
-  dayInput.value = todayDay() || 15;
+  dayInput.value = getAddPaymentDay();
 
   document.getElementById('add-pay-amount').value = '';
   document.getElementById('add-pay-item').value = '';
 
-  // カードセレクトの生成
   const cardSel = document.getElementById('add-pay-card');
   let cardHtml = `<option value="">カードなし</option>`;
   settings.cards.forEach(c => {
@@ -897,11 +1090,11 @@ function openAddPaymentModal() {
   });
   cardSel.innerHTML = cardHtml;
 
-  // 分割払いセレクト初期設定（一括固定、カードなし時は選択不可に）
   const instSel = document.getElementById('add-pay-installments');
   instSel.innerHTML = buildInstallmentOptions(1);
   instSel.disabled = true;
 
+  renderRecentPaymentChips();
   document.getElementById('add-payment-modal').classList.add('open');
 }
 
@@ -932,40 +1125,39 @@ function submitAddPayment() {
   const amount = parseFloat(amtVal) || 0;
   if (amount <= 0) { showToast('金額を入力してください', 'error'); return; }
 
-  const day = parseInt(dayVal) || todayDay() || 15;
+  const day = parseInt(dayVal) || getAddPaymentDay();
 
   const key = getKey();
   if (!monthData[key]) monthData[key] = [];
 
   pushUndo();
-  
+
   const newRow = {
     day: day,
     item: item,
     card: card,
     amount: amount,
-    installments: parseInt(inst) || 1
+    installments: card ? (parseInt(inst) || 1) : 1
   };
-  
+
   monthData[key].push(newRow);
   const newIdx = monthData[key].length - 1;
+
+  recordRecentPayment(newRow.item, newRow.card, newRow.installments);
 
   closeModal('add-payment-modal');
   renderKakeibo();
   scheduleAutoSave();
   showToast('＋ 支払いを追加しました', 'success');
 
-  // 追加後に重複チェック
   checkDuplicate(newIdx);
 }
 
 // ======================================================================
-// ======================================================================
-// 新規：間違え防止用のカスタム削除処理（✕ボタン、定額などに対応。confirm廃止）
+// 削除確認カスタムダイアログ
 // ======================================================================
 let pendingDeleteInfo = null;
 
-// 今月の通常行の削除確認
 function deleteExpense(i) {
   const key = getKey();
   const rows = monthData[key] || [];
@@ -975,7 +1167,7 @@ function deleteExpense(i) {
   pendingDeleteInfo = { type: 'current', key: key, index: i };
   const isInst = (parseInt(r.installments) || 1) > 1;
 
-  document.getElementById('delete-confirm-msg').innerHTML = 
+  document.getElementById('delete-confirm-msg').innerHTML =
     `「<span style="font-weight:700;">${escHtml(r.item || '未設定')}</span>」の支出（${fmtAmt(r.amount)}）を削除しますか？`;
   document.getElementById('delete-confirm-sub').style.display = isInst ? 'block' : 'none';
 
@@ -983,12 +1175,11 @@ function deleteExpense(i) {
   document.getElementById('delete-confirm-custom-modal').classList.add('open');
 }
 
-// 自動収集された分割払い表示から、親データの完全削除確認
 function deleteParentInstallment(parentKey, parentIndex, item, parentAmount) {
   pendingDeleteInfo = { type: 'parent', key: parentKey, index: parentIndex };
 
   const [y, m] = parentKey.split('-').map(Number);
-  document.getElementById('delete-confirm-msg').innerHTML = 
+  document.getElementById('delete-confirm-msg').innerHTML =
     `<span style="font-size:11px; color:var(--text3); display:block; margin-bottom:4px;">利用月: ${y}年${m}月登録データ</span>
      この分割払いの大元である「<span style="font-weight:700;">${escHtml(item)}</span>」（総額 ${fmtAmt(parentAmount)}）を削除しますか？`;
   document.getElementById('delete-confirm-sub').style.display = 'block';
@@ -999,8 +1190,8 @@ function deleteParentInstallment(parentKey, parentIndex, item, parentAmount) {
 
 function executeDelete() {
   if (!pendingDeleteInfo) return;
-  const { type, key, index } = pendingDeleteInfo;
-  
+  const { key, index } = pendingDeleteInfo;
+
   if (monthData[key] && monthData[key][index]) {
     pushUndo();
     monthData[key].splice(index, 1);
@@ -1013,7 +1204,6 @@ function executeDelete() {
 }
 
 // ======================================================================
-// ======================================================================
 // 重複チェック
 // ======================================================================
 function getPayMonthOffset(useDay, closeDay){
@@ -1025,9 +1215,9 @@ function getPayYearMonth(useYear, useMonth, useDay, closeDay) {
   const isLast = (closeDay === 'last' || closeDay === 0 || closeDay === 99);
   let offset;
   if (isLast) {
-    offset = 1; 
+    offset = 1;
   } else {
-    offset = (useDay <= closeDay) ? 1 : 2; 
+    offset = (useDay <= closeDay) ? 1 : 2;
   }
   let pm = useMonth + offset;
   let py = useYear;
@@ -1053,7 +1243,7 @@ function checkDuplicate(i){
     if(prev.card!==cur.card)continue;
     if(prev.item.trim()!==cur.item.trim())continue;
     const prevN=parseInt(prev.installments)||1;
-    if(prevN!==curN)continue; 
+    if(prevN!==curN)continue;
 
     const prevCard=settings.cards.find(c=>c.name===prev.card);
     if(!prevCard)continue;
@@ -1087,21 +1277,31 @@ function updateIncome(sourceName,val){
   updateIncomeTotalCell();updateSummary();scheduleAutoSave();
 }
 
-function updateExpenseTotal(){
+function calcMonthExpenseTotal(){
   const key=getKey();
   const rows=monthData[key]||[];
-  
-  // 今月の一括（分割回数<=1）の合計
+
+  // 1. 今月の一括（分割回数<=1）の合計
   let total = rows.filter(r => (parseInt(r.installments)||1) <= 1)
                   .reduce((s,r)=>s+(parseFloat(r.amount)||0),0);
-                  
-  // 今月の分割払い引き落とし額の自動収集分を合算
+
+  // 2. 今月の分割払い引き落とし額の自動収集分を合算
   const autoInstallments = getInstallmentsForMonth(currentYear, currentMonth);
   autoInstallments.forEach(item => {
     total += item.amount;
   });
 
-  document.getElementById('expense-total').textContent=fmtAmt(total);
+  // 3. 毎月の定額クレカ払いを合算
+  const fixedCardList = getFixedCardExpensesForMonth(currentYear, currentMonth);
+  fixedCardList.forEach(item => {
+    total += item.amount;
+  });
+
+  return total;
+}
+
+function updateExpenseTotal(){
+  document.getElementById('expense-total').textContent=fmtAmt(calcMonthExpenseTotal());
 }
 
 function updateIncomeTotalCell(){
@@ -1113,25 +1313,10 @@ function updateIncomeTotalCell(){
 
 function updateSummary(){
   const key=getKey();
-  let totalExp=0,totalInc=0;
-  
-  // 1. 今月の通常一括払いの集計（分割払い親データは今月の支出から除外）
-  const rows = monthData[key]||[];
-  rows.forEach(r => {
-    const inst = parseInt(r.installments)||1;
-    if (inst <= 1) {
-      totalExp += parseFloat(r.amount)||0;
-    }
-  });
-
-  // 2. 他月・今月から自動収集された、今月分引き落とし分割合計を合算
-  const autoInstallments = getInstallmentsForMonth(currentYear, currentMonth);
-  autoInstallments.forEach(item => {
-    totalExp += item.amount;
-  });
-
+  const totalExp=calcMonthExpenseTotal();
+  let totalInc=0;
   if(incomeData[key])Object.values(incomeData[key]).forEach(v=>totalInc+=parseFloat(v)||0);
-  
+
   document.getElementById('total-income').textContent=fmtAmt(totalInc);
   document.getElementById('total-expense').textContent=fmtAmt(totalExp);
   const bal=totalInc-totalExp;
@@ -1141,9 +1326,29 @@ function updateSummary(){
 }
 
 // ======================================================================
-// ======================================================================
 // SIMULATOR
 // ======================================================================
+function updateSimTodayToggleUI(){
+  const yesBtn=document.getElementById('sim-today-yes');
+  const noBtn=document.getElementById('sim-today-no');
+  if(yesBtn)yesBtn.classList.toggle('active',!!simIncludeToday);
+  if(noBtn)noBtn.classList.toggle('active',!simIncludeToday);
+}
+
+function setSimIncludeToday(val){
+  simIncludeToday=!!val;
+  updateSimTodayToggleUI();
+  renderSimulator();
+  scheduleAutoSave();
+}
+
+function isDateInSimRange(d, todayMidnight, limitDate){
+  const dm=new Date(d.getFullYear(),d.getMonth(),d.getDate());
+  if(simIncludeToday ? (dm < todayMidnight) : (dm <= todayMidnight)) return false;
+  if(dm > limitDate) return false;
+  return true;
+}
+
 function getSimMonths(){
   const now=new Date();
   const set=new Set();
@@ -1177,16 +1382,17 @@ function buildSimEvents(startBal){
 
   events.push({date:today,name:'現在残高',amount:0,type:'start',balance:startBal});
 
-  // クレジットカード引き落とし集計（分割払い・一括払いの全スケジュールをシミュレータに正確反映）
+  // クレジットカード引き落とし集計（一括払い・分割払い・定額クレカ払いをすべて合算）
   const cardBillingMap={};
+  const simMonths=getSimMonths();
 
-  getSimMonths().forEach(mk=>{
+  simMonths.forEach(mk=>{
     const[y,m]=mk.split('-').map(Number);
     const month=m-1;
     const rows=monthData[mk]||[];
 
     rows.forEach(r=>{
-      if(!r.card||r.card==='')return; 
+      if(!r.card||r.card==='')return;
       const card=settings.cards.find(c=>c.name===r.card);
       if(!card)return;
       const useDay=parseInt(r.day)||1;
@@ -1195,14 +1401,12 @@ function buildSimEvents(startBal){
 
       const inst = parseInt(r.installments)||1;
       if (inst > 1) {
-        // 分割払い：全引き落とし月を個別に追跡して計上
         const schedule = getInstallmentSchedule(y, month, useDay, r.card, amt, inst);
         schedule.forEach(item => {
           const billingKey=`${r.card}|${item.year}-${pad(item.month+1)}`;
           cardBillingMap[billingKey]=(cardBillingMap[billingKey]||0)+item.amount;
         });
       } else {
-        // 一括払い
         const{year:py,month:pm}=getPayYearMonth(y,month,useDay,card.closeDay);
         const billingKey=`${r.card}|${py}-${pad(pm+1)}`;
         cardBillingMap[billingKey]=(cardBillingMap[billingKey]||0)+amt;
@@ -1210,44 +1414,65 @@ function buildSimEvents(startBal){
     });
   });
 
+  // 定額クレカ払い：前々月〜3ヶ月後およびデータ存在月を含めて各月の利用分をクレカ請求額に合算
+  const fixedCardItems=(settings.fixed||[]).filter(f=>getFixedPayType(f)==='card');
+  if(fixedCardItems.length>0){
+    const fixedCardMonths=new Set(simMonths);
+    for(let offset=-2;offset<=3;offset++){
+      const d=new Date(today.getFullYear(),today.getMonth()+offset,1);
+      fixedCardMonths.add(`${d.getFullYear()}-${pad(d.getMonth()+1)}`);
+    }
+    fixedCardMonths.forEach(mk=>{
+      const[y,m]=mk.split('-').map(Number);
+      const month=m-1;
+      const lastDay=new Date(y,month+1,0).getDate();
+      fixedCardItems.forEach(f=>{
+        const amt=parseFloat(f.amount)||0;
+        if(amt<=0||!f.card)return;
+        const card=settings.cards.find(c=>c.name===f.card);
+        if(!card)return;
+        const useDay=Math.min(Math.max(parseInt(f.day)||1,1),lastDay);
+        const{year:py,month:pm}=getPayYearMonth(y,month,useDay,card.closeDay);
+        const billingKey=`${card.name}|${py}-${pad(pm+1)}`;
+        cardBillingMap[billingKey]=(cardBillingMap[billingKey]||0)+amt;
+      });
+    });
+  }
+
   Object.entries(cardBillingMap).forEach(([key,total])=>{
     const[cardName,ym]=key.split('|');
     const card=settings.cards.find(c=>c.name===cardName);
     if(!card)return;
     const[py,pm]=ym.split('-').map(Number);
     const payDate=adjustDate(py,pm-1,card.day,card.holiday);
-    const payMidnight=new Date(payDate.getFullYear(),payDate.getMonth(),payDate.getDate());
-    if(payMidnight<todayMidnight)return;
-    if(payMidnight>limitDate)return;
+    if(!isDateInSimRange(payDate,todayMidnight,limitDate))return;
     events.push({date:payDate,name:card.name,amount:-total,type:'expense'});
   });
 
-  getSimMonths().forEach(mk=>{
+  simMonths.forEach(mk=>{
     const[y,m]=mk.split('-').map(Number);
     const month=m-1;
     const rows=monthData[mk]||[];
 
     const noCardDate=new Date(y,month,1);
-    if(noCardDate>=todayMidnight&&noCardDate<=limitDate){
+    if(isDateInSimRange(noCardDate,todayMidnight,limitDate)){
       const noCard=rows.filter(r=>!r.card||r.card==='').reduce((s,r)=>s+(parseFloat(r.amount)||0),0);
       if(noCard>0)events.push({date:noCardDate,name:'カード未設定',amount:-noCard,type:'expense'});
     }
 
+    // 口座の定額支払いのみ個別引き落としとして計上（クレカ払いは上記cardBillingMapに合算済み）
     settings.fixed.forEach(f=>{
+      if(getFixedPayType(f)==='card')return;
       if(f.amount>0){
         const adj=adjustDate(y,month,f.day,f.holiday);
-        const adjMidnight=new Date(adj.getFullYear(),adj.getMonth(),adj.getDate());
-        if(adjMidnight<todayMidnight)return;
-        if(adjMidnight>limitDate)return;
+        if(!isDateInSimRange(adj,todayMidnight,limitDate))return;
         events.push({date:adj,name:f.name,amount:-f.amount,type:'expense'});
       }
     });
 
     settings.income.forEach(inc=>{
       const adj=adjustIncomeDate(y,month,inc.day,inc.holiday);
-      const adjMidnight=new Date(adj.getFullYear(),adj.getMonth(),adj.getDate());
-      if(adjMidnight<todayMidnight)return;
-      if(adjMidnight>limitDate)return;
+      if(!isDateInSimRange(adj,todayMidnight,limitDate))return;
       let amount=0;
       if(incomeData[mk]?.[inc.name])amount=parseFloat(incomeData[mk][inc.name])||0;
       if(!amount&&inc.defaultAmount&&inc.defaultAmount>0)amount=inc.defaultAmount;
@@ -1271,15 +1496,21 @@ function buildSimEvents(startBal){
 
 let simCalcTimer=null;
 function scheduleSimCalc(){clearTimeout(simCalcTimer);simCalcTimer=setTimeout(renderSimulator,600);}
+function onSimBalanceInput(){
+  scheduleSimCalc();
+  scheduleAutoSave();
+}
 
 function renderSimulator(){
+  updateSimTodayToggleUI();
   const startBal=parseFloat(document.getElementById('current-balance').value)||0;
   const now=new Date();
   let limitMonth=now.getMonth()+3;
   let limitYear=now.getFullYear();
   if(limitMonth>11){limitMonth-=12;limitYear++;}
   const rangeLabel=`${now.getFullYear()}年${now.getMonth()+1}月〜${limitYear}年${limitMonth+1}月（3ヶ月分）`;
-  document.getElementById('sim-info').textContent=`表示期間：${rangeLabel}`;
+  const todayModeLabel=simIncludeToday?'含む':'含まない（明日以降）';
+  document.getElementById('sim-info').textContent=`表示期間：${rangeLabel} ／ 今日の収支：${todayModeLabel}`;
 
   const events=buildSimEvents(startBal);
   let html='<div class="sim-list-card">';
@@ -1306,7 +1537,6 @@ function renderSimulator(){
 }
 
 // ======================================================================
-// ======================================================================
 // SETTINGS
 // ======================================================================
 function renderSettingsPage(){
@@ -1327,7 +1557,14 @@ function renderSettingsPage(){
   const fixedDiv=document.getElementById('fixed-settings-rows');fixedDiv.innerHTML='';
   settings.fixed.forEach((f,i)=>{
     const div=document.createElement('div');div.className='settings-item';
-    div.innerHTML=`<div class="settings-item-info"><div class="settings-item-name">${escHtml(f.name)}</div><div class="settings-item-sub">毎月${f.day}日 ／ ${fmtAmt(f.amount)} ／ 土日祝は${f.holiday==='next'?'翌平日':'前の平日'}</div></div><div class="settings-item-actions"><button class="settings-btn edit" onclick="openEditModal('fixed',${i})">編集</button><button class="settings-btn del" onclick="removeFixedSetting(${i})">削除</button></div>`;
+    const isCard=getFixedPayType(f)==='card';
+    const badgeHtml=isCard
+      ? `<span class="paytype-badge card">💳 クレカ</span>`
+      : `<span class="paytype-badge bank">🏦 口座</span>`;
+    const subText=isCard
+      ? `利用明細記入日：毎月${f.day}日 ／ ${escHtml(f.card||'未設定')} ／ ${fmtAmt(f.amount)}`
+      : `引落日：毎月${f.day}日 ／ ${fmtAmt(f.amount)} ／ 土日祝は${f.holiday==='next'?'翌平日':'前の平日'}`;
+    div.innerHTML=`<div class="settings-item-info"><div class="settings-item-name"><span>${escHtml(f.name)}</span>${badgeHtml}</div><div class="settings-item-sub">${subText}</div></div><div class="settings-item-actions"><button class="settings-btn edit" onclick="openEditModal('fixed',${i})">編集</button><button class="settings-btn del" onclick="removeFixedSetting(${i})">削除</button></div>`;
     fixedDiv.appendChild(div);
   });
 
@@ -1341,11 +1578,30 @@ function renderSettingsPage(){
 
   const tsEl=document.getElementById('save-ts');if(tsEl)tsEl.textContent=lastSaveTs||'';
 }
-function saveSettings(){renderIncomeRows();saveToStorage();showToast('💾 設定を保存しました','success');}
+function saveSettings(){renderKakeibo();saveToStorage();showToast('💾 設定を保存しました','success');}
 
 // ======================================================================
 // EDIT MODAL
 // ======================================================================
+function buildFixedCardSelectOptions(selectedCard){
+  if(!settings.cards||settings.cards.length===0){
+    return `<option value="">（先にカードを登録してください）</option>`;
+  }
+  return settings.cards.map(c=>{
+    const sel=c.name===selectedCard?'selected':'';
+    return `<option value="${escHtml(c.name)}" ${sel}>${escHtml(c.name)}</option>`;
+  }).join('');
+}
+
+function toggleFixedPayTypeFields(payType){
+  const bankEl=document.getElementById('em-fixed-bank-fields');
+  const cardEl=document.getElementById('em-fixed-card-fields');
+  if(!bankEl||!cardEl)return;
+  const isCard=(payType==='card');
+  bankEl.style.display=isCard?'none':'';
+  cardEl.style.display=isCard?'':'none';
+}
+
 function openEditModal(type,idx){
   const isNew=idx===null;
   const data=isNew?null:type==='cc'?settings.cards[idx]:type==='fixed'?settings.fixed[idx]:settings.income[idx];
@@ -1382,7 +1638,57 @@ function openEditModal(type,idx){
       </div>`;
   }else if(type==='fixed'){
     title=isNew?'定額支払いを追加':'定額支払いを編集';
-    bodyHtml=`<div class="form-row"><label class="form-label">項目名</label><input type="text" class="form-input" id="em-name" value="${escHtml(data?.name||'')}" placeholder="例：家賃"></div><div class="form-row-2col"><div><label class="form-label">引き落とし日</label><input type="number" class="form-input" id="em-day" min="1" max="31" value="${data?.day||27}"></div><div><label class="form-label">金額</label><input type="number" class="form-input" id="em-amount" min="0" value="${data?.amount||0}"></div></div><div class="form-row"><label class="form-label">土日祝の扱い</label><select class="form-input" id="em-holiday"><option value="next" ${data?.holiday!=='prev'?'selected':''}>翌平日</option><option value="prev" ${data?.holiday==='prev'?'selected':''}>前の平日</option></select></div>`;
+    const payType=getFixedPayType(data);
+    const isCard=(payType==='card');
+    const selectedCard=data?.card||(settings.cards[0]?.name||'');
+    bodyHtml=`
+      <div class="form-row">
+        <label class="form-label">項目名</label>
+        <input type="text" class="form-input" id="em-name" value="${escHtml(data?.name||'')}" placeholder="例：家賃、サブスク等">
+      </div>
+      <div class="form-row-2col">
+        <div>
+          <label class="form-label">支払い方法</label>
+          <select class="form-input" id="em-pay-type" onchange="toggleFixedPayTypeFields(this.value)">
+            <option value="bank" ${!isCard?'selected':''}>口座支払い</option>
+            <option value="card" ${isCard?'selected':''}>クレジットカード払い</option>
+          </select>
+        </div>
+        <div>
+          <label class="form-label">金額（円）</label>
+          <input type="number" class="form-input" id="em-amount" min="0" value="${data?.amount||0}">
+        </div>
+      </div>
+      <div id="em-fixed-bank-fields" style="display:${isCard?'none':''};">
+        <div class="form-row-2col" style="margin-bottom:0;">
+          <div>
+            <label class="form-label">引き落とし日（毎月）</label>
+            <input type="number" class="form-input" id="em-day" min="1" max="31" value="${data?.day||27}">
+          </div>
+          <div>
+            <label class="form-label">土日祝の扱い</label>
+            <select class="form-input" id="em-holiday">
+              <option value="next" ${data?.holiday!=='prev'?'selected':''}>翌平日</option>
+              <option value="prev" ${data?.holiday==='prev'?'selected':''}>前の平日</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div id="em-fixed-card-fields" style="display:${isCard?'':'none'};">
+        <div class="form-row-2col" style="margin-bottom:0;">
+          <div>
+            <label class="form-label">利用明細記入日（毎月）</label>
+            <input type="number" class="form-input" id="em-card-day" min="1" max="31" value="${data?.day||1}">
+          </div>
+          <div>
+            <label class="form-label">クレジットカード</label>
+            <select class="form-input" id="em-fixed-card">
+              ${buildFixedCardSelectOptions(selectedCard)}
+            </select>
+          </div>
+        </div>
+        <div class="form-hint">※毎月の家計簿の支出欄に自動表示され、指定カードの締め日・引き落とし日に合わせてクレカ請求額に合算されます。</div>
+      </div>`;
   }else{
     title=isNew?'収入を追加':'収入を編集';
     bodyHtml=`<div class="form-row"><label class="form-label">収入源</label><input type="text" class="form-input" id="em-name" value="${escHtml(data?.name||'')}" placeholder="例：給与"></div><div class="form-row-2col"><div><label class="form-label">振り込み日</label><input type="number" class="form-input" id="em-day" min="1" max="31" value="${data?.day||25}"></div><div><label class="form-label">土日祝の扱い</label><select class="form-input" id="em-holiday"><option value="prev" ${data?.holiday!=='next'?'selected':''}>前の平日</option><option value="next" ${data?.holiday==='next'?'selected':''}>翌平日</option></select></div></div><div class="form-row"><label class="form-label">毎月固定金額（自動入力）</label><input type="number" class="form-input" id="em-default-amount" min="0" value="${data?.defaultAmount||0}" placeholder="0（未設定）"></div>`;
@@ -1415,30 +1721,50 @@ function saveEditModal(type,idx){
       if(settings.cards.find(c=>c.name===name)){showToast('同名のカードが既にあります','error');return;}
       settings.cards.push({name,closeDay,day,holiday});
     }else{
+      const oldName=settings.cards[idx].name;
+      if(oldName!==name && settings.cards.find((c,ci)=>ci!==idx && c.name===name)){
+        showToast('同名のカードが既にあります','error');return;
+      }
       settings.cards[idx]={name,closeDay,day,holiday};
+      if(oldName!==name){
+        settings.fixed.forEach(f=>{
+          if(getFixedPayType(f)==='card' && f.card===oldName)f.card=name;
+        });
+      }
     }
   }else if(type==='fixed'){
-    if(idx===null)settings.fixed.push({name,day,amount,holiday});
-    else settings.fixed[idx]={name,day,amount,holiday};
+    const payType=document.getElementById('em-pay-type')?.value||'bank';
+    if(payType==='card'){
+      const card=document.getElementById('em-fixed-card')?.value||'';
+      if(!card){showToast('クレジットカードを選択してください','error');return;}
+      const cardDay=Math.min(31,Math.max(1,parseInt(document.getElementById('em-card-day')?.value)||1));
+      const obj={name,day:cardDay,amount,payType:'card',card,holiday:'next'};
+      if(idx===null)settings.fixed.push(obj);
+      else settings.fixed[idx]=obj;
+    }else{
+      const bankDay=Math.min(31,Math.max(1,parseInt(document.getElementById('em-day')?.value)||27));
+      const obj={name,day:bankDay,amount,holiday,payType:'bank'};
+      if(idx===null)settings.fixed.push(obj);
+      else settings.fixed[idx]=obj;
+    }
   }else{
     if(idx===null)settings.income.push({name,day,amount:0,holiday,defaultAmount});
     else settings.income[idx]={...settings.income[idx],name,day,holiday,defaultAmount};
   }
 
   closeModal('edit-modal');
-  renderSettingsPage();renderIncomeRows();
+  renderSettingsPage();renderKakeibo();
   scheduleAutoSave();
   showToast('💾 保存しました','success');
 }
 
-// 削除時の間違え防止のためのカスタムダイアログの割り当て（一貫性維持）
 function removeCCSetting(i){
   pendingDeleteInfo = { type: 'cc_setting', index: i };
   document.getElementById('delete-confirm-msg').textContent = `クレジットカード「${settings.cards[i].name}」の設定を削除しますか？`;
   document.getElementById('delete-confirm-sub').style.display = 'none';
   document.getElementById('delete-confirm-yes-btn').onclick = () => {
     settings.cards.splice(pendingDeleteInfo.index, 1);
-    renderSettingsPage(); scheduleAutoSave();
+    renderSettingsPage(); renderKakeibo(); scheduleAutoSave();
     closeModal('delete-confirm-custom-modal');
     showToast('カード設定を削除しました', 'warn');
   };
@@ -1451,7 +1777,7 @@ function removeFixedSetting(i){
   document.getElementById('delete-confirm-sub').style.display = 'none';
   document.getElementById('delete-confirm-yes-btn').onclick = () => {
     settings.fixed.splice(pendingDeleteInfo.index, 1);
-    renderSettingsPage(); scheduleAutoSave();
+    renderSettingsPage(); renderKakeibo(); scheduleAutoSave();
     closeModal('delete-confirm-custom-modal');
     showToast('定額支払いを削除しました', 'warn');
   };
@@ -1464,7 +1790,7 @@ function removeIncomeSetting(i){
   document.getElementById('delete-confirm-sub').style.display = 'none';
   document.getElementById('delete-confirm-yes-btn').onclick = () => {
     settings.income.splice(pendingDeleteInfo.index, 1);
-    renderSettingsPage(); renderIncomeRows(); scheduleAutoSave();
+    renderSettingsPage(); renderIncomeRows(); updateSummary(); scheduleAutoSave();
     closeModal('delete-confirm-custom-modal');
     showToast('収入源設定を削除しました', 'warn');
   };
@@ -1540,14 +1866,22 @@ document.querySelectorAll('.modal-overlay').forEach(ov=>{
 });
 
 // ======================================================================
-// ======================================================================
 // LOCAL STORAGE
 // ======================================================================
 const LS_KEY='kakeibo_v3';
 let lastSaveTs='';
 function saveToStorage(){
   try{
-    const payload={version:3,savedAt:new Date().toISOString(),monthData,incomeData,settings,simBalance:document.getElementById('current-balance')?.value||'77497'};
+    const payload={
+      version:3,
+      savedAt:new Date().toISOString(),
+      monthData,
+      incomeData,
+      settings,
+      simBalance:document.getElementById('current-balance')?.value||'77497',
+      recentPayments,
+      simIncludeToday
+    };
     localStorage.setItem(LS_KEY,JSON.stringify(payload));
     updateSaveTs(payload.savedAt);
   }catch(e){showToast('保存に失敗しました','error');}
@@ -1559,6 +1893,9 @@ function loadFromStorage(){
     if(p.monthData)monthData=p.monthData;
     if(p.incomeData)incomeData=p.incomeData;
     if(p.settings)settings=p.settings;
+    if(Array.isArray(p.recentPayments))recentPayments=p.recentPayments;
+    if(typeof p.simIncludeToday==='boolean')simIncludeToday=p.simIncludeToday;
+    normalizeSettings();
     if(p.savedAt)updateSaveTs(p.savedAt);
     return p;
   }catch(e){return false;}
@@ -1576,7 +1913,17 @@ function manualSave(){saveToStorage();showToast('💾 保存しました','succe
 // DOWNLOAD / UPLOAD
 // ======================================================================
 function downloadData(){
-  const payload={version:3,exportedAt:new Date().toISOString(),appName:'家計簿管理アプリ',monthData,incomeData,settings,simBalance:document.getElementById('current-balance')?.value||'0'};
+  const payload={
+    version:3,
+    exportedAt:new Date().toISOString(),
+    appName:'家計簿管理アプリ',
+    monthData,
+    incomeData,
+    settings,
+    simBalance:document.getElementById('current-balance')?.value||'0',
+    recentPayments,
+    simIncludeToday
+  };
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
   const url=URL.createObjectURL(blob);const a=document.createElement('a');
   const now=new Date();a.href=url;a.download=`kakeibo_${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}.json`;
@@ -1609,9 +1956,13 @@ function applyImport(){
   if(p.monthData)monthData=p.monthData;
   if(p.incomeData)incomeData=p.incomeData;
   if(p.settings)settings=p.settings;
-  if(p.simBalance){const el=document.getElementById('current-balance');if(el)el.value=p.simBalance;}
+  if(Array.isArray(p.recentPayments))recentPayments=p.recentPayments;
+  else { recentPayments=[]; seedRecentPaymentsFromMonthData(); }
+  if(typeof p.simIncludeToday==='boolean')simIncludeToday=p.simIncludeToday;
+  normalizeSettings();
+  if(p.simBalance!==undefined && p.simBalance!==null){const el=document.getElementById('current-balance');if(el)el.value=p.simBalance;}
   closeModal('import-confirm-modal');pendingImport=null;
-  saveToStorage();renderKakeibo();renderSettingsPage();
+  saveToStorage();renderKakeibo();renderSettingsPage();updateSimTodayToggleUI();
   showToast('⬆ 読み込みました','success');
 }
 
@@ -1624,7 +1975,7 @@ function confirmClearData(){
 }
 
 function clearAllData(){
-  localStorage.removeItem(LS_KEY);monthData={};incomeData={};
+  localStorage.removeItem(LS_KEY);monthData={};incomeData={};recentPayments=[];simIncludeToday=true;
   settings={
     cards:[
       {name:'イオンカード',      closeDay:10,     day:2,  holiday:'next'},
@@ -1633,11 +1984,16 @@ function clearAllData(){
       {name:'J-WESTカード',      closeDay:15,     day:10, holiday:'next'},
       {name:'Amazon Mastercard', closeDay:'last', day:26, holiday:'next'},
     ],
-    fixed:[{name:'家賃',day:27,amount:43625,holiday:'next'},{name:'大阪ガス',day:27,amount:3000,holiday:'next'},{name:'関西電力',day:22,amount:5000,holiday:'next'},{name:'楽天mobile',day:27,amount:2000,holiday:'next'}],
+    fixed:[
+      {name:'家賃',day:27,amount:43625,holiday:'next',payType:'bank'},
+      {name:'大阪ガス',day:27,amount:3000,holiday:'next',payType:'bank'},
+      {name:'関西電力',day:22,amount:5000,holiday:'next',payType:'bank'},
+      {name:'楽天mobile',day:27,amount:2000,holiday:'next',payType:'bank'}
+    ],
     income:[{name:'日本学生支援機構',day:11,amount:0,holiday:'prev',defaultAmount:113271},{name:'水春',day:15,amount:0,holiday:'prev',defaultAmount:0}]
   };
   lastSaveTs='';
-  renderKakeibo();renderSettingsPage();
+  renderKakeibo();renderSettingsPage();updateSimTodayToggleUI();
   showToast('🗑 消去しました','warn');
 }
 
@@ -1657,7 +2013,10 @@ function showToast(msg,type=''){
 // ======================================================================
 function init(){
   const loaded=loadFromStorage();
-  if(loaded?.simBalance){const el=document.getElementById('current-balance');if(el)el.value=loaded.simBalance;}
+  if(loaded?.simBalance!==undefined && loaded?.simBalance!==null){
+    const el=document.getElementById('current-balance');
+    if(el)el.value=loaded.simBalance;
+  }
   if(!loaded){
     const key=`${currentYear}-${pad(currentMonth+1)}`;
     monthData[key]=[
@@ -1675,7 +2034,10 @@ function init(){
     ];
     incomeData[key]={'水春':49950};
   }
-  
+  normalizeSettings();
+  seedRecentPaymentsFromMonthData();
+  updateSimTodayToggleUI();
+
   // 過去の保存データ互換性のために日付順ソート
   Object.keys(monthData).forEach(k=>{
     if(monthData[k]&&monthData[k].length>0){
