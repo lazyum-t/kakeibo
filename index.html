@@ -3,9 +3,134 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="app-version" content="20261126-193000">
 <title>家計簿</title>
+<script>
+(()=>{
+  const V="20261126-193000",SK="__ag_upd_snap__",TK="__ag_upd_try__",AK="__ag_upd_at__";
+  try{
+    const u=new URL(location.href);
+    if(u.searchParams.has("_v")){
+      u.searchParams.delete("_v");
+      history.replaceState(history.state,"",u.pathname+u.search+u.hash);
+    }
+  }catch(_){}
+  const dirty=new Set();
+  const elKey=(el)=>{
+    if(!el)return null;
+    if(el.id)return "#"+el.id;
+    const dk=el.getAttribute&&el.getAttribute("data-key");
+    if(dk)return '[data-key="'+dk+'"]';
+    if(el.name)return el.tagName+'[name="'+el.name+'"]';
+    return null;
+  };
+  const markDirty=(e)=>{const k=elKey(e.target);if(k)dirty.add(k);};
+  document.addEventListener("input",markDirty,true);
+  document.addEventListener("change",markDirty,true);
+  const captureSnapshot=()=>{
+    try{
+      if(typeof window.__APP_BEFORE_UPDATE__==="function"){
+        try{window.__APP_BEFORE_UPDATE__();}catch(_){}
+      }
+      if(document.readyState==="loading")return;
+      const fields={};
+      dirty.forEach((k)=>{
+        const el=k.startsWith("#")?document.getElementById(k.slice(1)):document.querySelector(k);
+        if(!el||el.type==="file"||el.type==="password"||el.type==="submit"||el.type==="button")return;
+        if(el.type==="checkbox"||el.type==="radio")fields[k]={t:"c",v:el.checked};
+        else fields[k]={t:"v",v:el.value};
+      });
+      if(Object.keys(fields).length>0||window.scrollY>0){
+        sessionStorage.setItem(SK,JSON.stringify({at:Date.now(),y:window.scrollY||0,fields}));
+      }
+    }catch(_){}
+  };
+  const restoreSnapshot=()=>{
+    try{
+      const raw=sessionStorage.getItem(SK);
+      if(!raw)return;
+      sessionStorage.removeItem(SK);
+      const snap=JSON.parse(raw);
+      if(!snap||Date.now()-(snap.at||0)>30000)return;
+      const apply=()=>{
+        try{
+          const f=snap.fields||{};
+          Object.keys(f).forEach((k)=>{
+            const el=k.startsWith("#")?document.getElementById(k.slice(1)):document.querySelector(k);
+            if(!el)return;
+            const d=f[k];
+            if(d.t==="c"){
+              if(el.checked!==d.v){el.checked=d.v;el.dispatchEvent(new Event("change",{bubbles:true}));}
+            }else if(typeof d.v==="string"&&el.value!==d.v){
+              el.value=d.v;
+              el.dispatchEvent(new Event("input",{bubbles:true}));
+              el.dispatchEvent(new Event("change",{bubbles:true}));
+            }
+          });
+          if(snap.y>0)window.scrollTo(0,snap.y);
+        }catch(_){}
+      };
+      if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",()=>setTimeout(apply,60),{once:true});
+      else setTimeout(apply,60);
+    }catch(_){}
+  };
+  restoreSnapshot();
+  let pendingVer=null,reloading=false,lastCheck=0;
+  const canReload=()=>{
+    if(typeof window.__APP_CAN_RELOAD__==="function"){
+      try{return !!window.__APP_CAN_RELOAD__();}catch(_){return true;}
+    }
+    return true;
+  };
+  const applyUpdate=async(nextVer)=>{
+    if(reloading)return;
+    if(!canReload()){pendingVer=nextVer;return;}
+    reloading=true;pendingVer=null;
+    captureSnapshot();
+    try{sessionStorage.setItem(TK,nextVer);sessionStorage.setItem(AK,String(Date.now()));}catch(_){}
+    try{
+      if("caches"in window){const ks=await caches.keys();await Promise.all(ks.map((k)=>caches.delete(k)));}
+      if("serviceWorker"in navigator){const regs=await navigator.serviceWorker.getRegistrations();await Promise.all(regs.map((r)=>r.update().catch(()=>{})));}
+    }catch(_){}
+    const u=new URL(location.href);
+    u.searchParams.set("_v",nextVer);
+    location.replace(u.toString());
+  };
+  const check=async(force)=>{
+    if(reloading)return;
+    const now=Date.now();
+    if(!force&&now-lastCheck<3000)return;
+    lastCheck=now;
+    const ac=typeof AbortController!=="undefined"?new AbortController():null;
+    const tm=ac?setTimeout(()=>ac.abort(),4000):null;
+    try{
+      const r=await fetch("./version.json?t="+now,{cache:"no-store",signal:ac?ac.signal:undefined});
+      if(!r.ok)return;
+      const d=await r.json();
+      const nv=d&&typeof d.v==="string"?d.v.trim():"";
+      if(!nv||nv===V)return;
+      try{
+        if(sessionStorage.getItem(TK)===nv&&now-Number(sessionStorage.getItem(AK)||0)<30000)return;
+      }catch(_){}
+      applyUpdate(nv);
+    }catch(_){}
+    finally{if(tm)clearTimeout(tm);}
+  };
+  window.__APP_VERSION__=V;
+  window.__APP_CHECK_UPDATE__=()=>check(true);
+  window.__APP_NOTIFY_SAFE_TO_RELOAD__=()=>{if(pendingVer)applyUpdate(pendingVer);};
+  check(true);
+  document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")check(false);});
+  window.addEventListener("pageshow",(e)=>{if(e.persisted)check(true);});
+  setInterval(()=>{if(pendingVer&&canReload())applyUpdate(pendingVer);},1500);
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap"></noscript>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
 
   :root {
     --bg:#F2F4F7; --surface:#FFFFFF; --surface2:#F8F9FB; --border:#E8EBF0;
@@ -2177,9 +2302,29 @@ function init(){
   renderKakeibo();
 }
 
-window.onload = function() {
+let __kakeiboInited = false;
+function bootKakeibo() {
+  if (__kakeiboInited) return;
+  __kakeiboInited = true;
   init();
-};
+}
+function flushPendingAutoSave() {
+  if (autoSaveTimer) {
+    clearTimeout(autoSaveTimer);
+    autoSaveTimer = null;
+  }
+  try { saveToStorage(); } catch (_) {}
+}
+window.__APP_BEFORE_UPDATE__ = flushPendingAutoSave;
+window.addEventListener('pagehide', flushPendingAutoSave);
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') flushPendingAutoSave();
+});
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bootKakeibo, { once: true });
+} else {
+  bootKakeibo();
+}
 </script>
 </body>
 </html>
