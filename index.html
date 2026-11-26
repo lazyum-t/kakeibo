@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="app-version" content="20261126-193000">
+<meta name="app-version" content="20261126-210000">
 <title>家計簿</title>
 <script>
 (()=>{
-  const V="20261126-193000",SK="__ag_upd_snap__",TK="__ag_upd_try__",AK="__ag_upd_at__";
+  const V="20261126-210000",SK="__ag_upd_snap__",TK="__ag_upd_try__",AK="__ag_upd_at__";
   try{
     const u=new URL(location.href);
     if(u.searchParams.has("_v")){
@@ -126,10 +126,6 @@
   setInterval(()=>{if(pendingVer&&canReload())applyUpdate(pendingVer);},1500);
 })();
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap"></noscript>
 <style>
 
   :root {
@@ -145,7 +141,7 @@
   }
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
   html,body{height:100%;overflow:hidden;}
-  body{font-family:'Noto Sans JP','Hiragino Sans',sans-serif;background:var(--bg);color:var(--text);font-size:14px;overscroll-behavior:none;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic UI','Meiryo',sans-serif;background:var(--bg);color:var(--text);font-size:14px;overscroll-behavior:none;}
   #app{display:flex;flex-direction:column;height:100vh;height:100dvh;}
 
   .header{height:var(--header-h);background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;gap:10px;flex-shrink:0;box-shadow:var(--shadow-sm);position:relative;z-index:50;}
@@ -2320,10 +2316,9 @@ window.addEventListener('pagehide', flushPendingAutoSave);
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'hidden') flushPendingAutoSave();
 });
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', bootKakeibo, { once: true });
-} else {
-  bootKakeibo();
+bootKakeibo();
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js', { scope: './', updateViaCache: 'none' }).catch(() => {});
 }
 </script>
 </body>
