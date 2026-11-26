@@ -142,7 +142,23 @@
   .data-action-btn.danger:active{background:var(--red-light);border-color:var(--red);color:var(--red);}
   .save-ts{text-align:center;font-size:11px;color:var(--text3);margin-bottom:16px;}
 
-  .tab-bar{height:var(--tab-h);background:var(--surface);border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(3,1fr);align-items:center;flex-shrink:0;box-shadow:0 -2px 12px rgba(15,25,35,.07);}
+  .tab-bar{height:var(--tab-h);background:var(--surface);border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(4,1fr);align-items:center;flex-shrink:0;box-shadow:0 -2px 12px rgba(15,25,35,.07);}
+
+  /* 支出履歴ページ */
+  .history-row{display:grid;grid-template-columns:46px 1fr auto;align-items:center;padding:11px 14px;border-bottom:1px solid var(--border);gap:10px;}
+  .history-row:last-child{border-bottom:none;}
+  .history-date-badge{width:46px;min-height:36px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--text2);line-height:1.15;flex-shrink:0;}
+  .history-date-year{font-size:9px;color:var(--text3);font-weight:600;}
+  .history-main{min-width:0;}
+  .history-title-row{display:flex;align-items:center;gap:5px;margin-bottom:3px;min-width:0;}
+  .history-item-name{font-size:13.5px;font-weight:700;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .history-badge{font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:8px;flex-shrink:0;}
+  .history-badge.merged{background:var(--yellow-light);color:#B45309;border:1px solid rgba(245,158,11,.35);}
+  .history-badge.inst{background:var(--accent-light);color:var(--accent);}
+  .history-sub{font-size:11px;color:var(--text2);display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;line-height:1.35;}
+  .history-added-at{color:var(--text3);font-size:10.5px;}
+  .history-amount{font-size:14.5px;font-weight:700;color:var(--red);text-align:right;white-space:nowrap;}
+  .history-empty{padding:36px 20px;text-align:center;color:var(--text3);font-size:13px;line-height:1.7;}
   .tab-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:8px 0;border:none;background:none;cursor:pointer;font-family:inherit;color:var(--text3);transition:color .15s;}
   .tab-btn.active{color:var(--accent);}
   .tab-btn .tab-icon{font-size:20px;line-height:1;}
@@ -169,13 +185,27 @@
   .modal-btn-ghost{width:100%;padding:14px;background:var(--surface2);color:var(--text2);border:1px solid var(--border);border-radius:12px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;}
   .modal-btn-danger{width:100%;padding:14px;background:var(--red-light);color:var(--red);border:none;border-radius:12px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;}
 
-  /* 最近の支払い候補チップ */
-  .recent-pay-section{margin-bottom:14px;padding:10px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:12px;}
-  .recent-pay-label{font-size:11px;font-weight:700;color:var(--text2);margin-bottom:8px;display:flex;align-items:center;gap:4px;}
-  .recent-pay-chips{display:flex;flex-wrap:wrap;gap:6px;}
-  .recent-pay-chip{border:1px solid var(--border);background:var(--surface);border-radius:18px;padding:6px 11px;font-family:inherit;font-size:12px;font-weight:600;color:var(--text);cursor:pointer;display:inline-flex;align-items:center;gap:5px;max-width:100%;transition:all .15s;}
+  /* 最近の支払い候補チップ（2列・最大4件でスクロールなし表示） */
+  .recent-pay-section{margin-bottom:10px;padding:8px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;}
+  .recent-pay-label{font-size:10.5px;font-weight:700;color:var(--text2);margin-bottom:5px;display:flex;align-items:center;gap:4px;}
+  .recent-pay-chips{display:grid;grid-template-columns:1fr 1fr;gap:5px;}
+  .recent-pay-chip{border:1px solid var(--border);background:var(--surface);border-radius:10px;padding:5px 8px;font-family:inherit;font-size:11.5px;font-weight:600;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:4px;width:100%;min-width:0;transition:all .15s;}
   .recent-pay-chip:active{background:var(--accent-light);border-color:var(--accent);color:var(--accent);}
-  .recent-pay-chip-sub{font-size:10px;font-weight:600;color:var(--text2);background:var(--surface2);padding:1px 6px;border-radius:10px;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .recent-pay-chip-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;text-align:left;}
+  .recent-pay-chip-sub{font-size:9.5px;font-weight:600;color:var(--text2);background:var(--surface2);padding:1px 5px;border-radius:8px;max-width:64px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex-shrink:0;}
+
+  /* 支払い追加モーダルを1画面に収めるコンパクト調整 */
+  #add-payment-modal .modal{max-height:96vh;max-height:96dvh;}
+  #add-payment-modal .modal-handle{margin:8px auto 10px;}
+  #add-payment-modal .modal-title{font-size:15px;padding:0 16px 10px;}
+  #add-payment-modal .modal-body{padding:10px 16px 8px;}
+  #add-payment-modal .form-row,
+  #add-payment-modal .form-row-2col{margin-bottom:9px;}
+  #add-payment-modal .form-label{font-size:11px;margin-bottom:4px;}
+  #add-payment-modal .form-input{padding:9px 10px;font-size:14px;}
+  #add-payment-modal .modal-footer{padding:8px 16px 14px;display:grid;grid-template-columns:1fr 1.6fr;gap:8px;}
+  #add-payment-modal .modal-btn-primary,
+  #add-payment-modal .modal-btn-ghost{padding:12px 10px;font-size:14px;}
 
   .dup-msg{font-size:14px;color:var(--text);line-height:1.6;margin-bottom:16px;}
   .dup-highlight{font-weight:700;color:var(--accent);}
@@ -276,6 +306,19 @@
       </div>
     </div>
 
+    <!-- 支出履歴 -->
+    <div id="page-history" class="page">
+      <div class="section-card">
+        <div class="section-card-header">
+          <div class="section-card-title">
+            <svg width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="6" fill="#2563EB"/></svg>支出履歴（最新20件）
+          </div>
+          <div style="font-size:12px;font-weight:700;color:var(--text2);" id="history-count-label">0 / 20件</div>
+        </div>
+        <div id="history-rows"></div>
+      </div>
+    </div>
+
     <!-- シミュレーター -->
     <div id="page-simulator" class="page">
       <div class="sim-balance-card">
@@ -330,6 +373,9 @@
     <button class="tab-btn active" id="tab-kakeibo" onclick="showPage('kakeibo')">
       <span class="tab-icon">📒</span><span class="tab-label">家計簿</span><span class="tab-dot"></span>
     </button>
+    <button class="tab-btn" id="tab-history" onclick="showPage('history')">
+      <span class="tab-icon">🕒</span><span class="tab-label">支出履歴</span><span class="tab-dot"></span>
+    </button>
     <button class="tab-btn" id="tab-simulator" onclick="showPage('simulator')">
       <span class="tab-icon">📊</span><span class="tab-label">残高</span><span class="tab-dot"></span>
     </button>
@@ -346,7 +392,7 @@
     <div class="modal-title">＋ 支払いを追加</div>
     <div class="modal-body">
       <div class="recent-pay-section" id="recent-pay-section" style="display:none;">
-        <div class="recent-pay-label">🕒 最近の支払い（タップで内容・カードを自動入力）</div>
+        <div class="recent-pay-label">🕒 最近の支払い（タップで自動入力）</div>
         <div class="recent-pay-chips" id="recent-pay-chips"></div>
       </div>
       <div class="form-row">
@@ -382,8 +428,8 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button class="modal-btn-primary" onclick="submitAddPayment()">この内容で追加</button>
       <button class="modal-btn-ghost" onclick="closeModal('add-payment-modal')">キャンセル</button>
+      <button class="modal-btn-primary" onclick="submitAddPayment()">この内容で追加</button>
     </div>
   </div>
 </div>
@@ -519,7 +565,9 @@ let monthData={};
 let incomeData={};
 let lastOpenedDate='';
 let recentPayments=[];
-const RECENT_PAYMENTS_MAX=8;
+const RECENT_PAYMENTS_MAX=4;
+let paymentHistory=[];
+const PAYMENT_HISTORY_MAX=20;
 let simIncludeToday=true;
 
 let settings={
@@ -722,6 +770,7 @@ function showPage(name){
   document.getElementById('tab-'+name).classList.add('active');
   document.getElementById('page-content').scrollTop=0;
   document.getElementById('month-nav').style.display=name==='kakeibo'?'':'none';
+  if(name==='history')renderHistoryPage();
   if(name==='simulator')renderSimulator();
   if(name==='settings')renderSettingsPage();
 }
@@ -1043,7 +1092,7 @@ function renderRecentPaymentChips() {
     return;
   }
   sec.style.display = '';
-  wrap.innerHTML = recentPayments.map((rec, idx) => {
+  wrap.innerHTML = recentPayments.slice(0, RECENT_PAYMENTS_MAX).map((rec, idx) => {
     const subParts = [];
     if (rec.card) subParts.push(rec.card);
     const inst = parseInt(rec.installments) || 1;
@@ -1051,7 +1100,7 @@ function renderRecentPaymentChips() {
     const subHtml = subParts.length
       ? `<span class="recent-pay-chip-sub">${escHtml(subParts.join('・'))}</span>`
       : '';
-    return `<button type="button" class="recent-pay-chip" onclick="applyRecentPayment(${idx})"><span>${escHtml(rec.item)}</span>${subHtml}</button>`;
+    return `<button type="button" class="recent-pay-chip" onclick="applyRecentPayment(${idx})"><span class="recent-pay-chip-name">${escHtml(rec.item)}</span>${subHtml}</button>`;
   }).join('');
 }
 
@@ -1114,6 +1163,72 @@ function openCalcForAddPayment() {
   });
 }
 
+function recordPaymentHistory(year, monthOneBased, row) {
+  const entry = {
+    id: Date.now() + '_' + Math.random().toString(36).slice(2, 7),
+    addedAt: new Date().toISOString(),
+    year: year,
+    month: monthOneBased,
+    day: parseInt(row.day) || 1,
+    item: (row.item || '').trim(),
+    card: row.card || '',
+    amount: parseFloat(row.amount) || 0,
+    installments: row.card ? (parseInt(row.installments) || 1) : 1,
+    merged: false,
+    mergedTargetDay: null
+  };
+  paymentHistory.unshift(entry);
+  if (paymentHistory.length > PAYMENT_HISTORY_MAX) {
+    paymentHistory = paymentHistory.slice(0, PAYMENT_HISTORY_MAX);
+  }
+  return entry.id;
+}
+
+function fmtHistoryAddedAt(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return '';
+  return `${d.getMonth() + 1}/${d.getDate()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+function renderHistoryPage() {
+  const wrap = document.getElementById('history-rows');
+  const countEl = document.getElementById('history-count-label');
+  if (!wrap) return;
+  const list = (paymentHistory || []).slice(0, PAYMENT_HISTORY_MAX);
+  if (countEl) countEl.textContent = `${list.length} / ${PAYMENT_HISTORY_MAX}件`;
+  if (list.length === 0) {
+    wrap.innerHTML = `<div class="history-empty">まだ支払い追加履歴がありません<br>「＋ 支払いを追加」から登録すると最新${PAYMENT_HISTORY_MAX}件まで表示されます</div>`;
+    return;
+  }
+  const nowYear = new Date().getFullYear();
+  wrap.innerHTML = list.map(h => {
+    const showYear = h.year && h.year !== nowYear ? `<span class="history-date-year">${h.year}</span>` : '';
+    const dateLabel = `${h.month || ''}/${h.day || ''}`;
+    const inst = parseInt(h.installments) || 1;
+    const instBadge = (h.card && inst > 1) ? `<span class="history-badge inst">${inst}回</span>` : '';
+    const mergedBadge = h.merged ? `<span class="history-badge merged">合算済</span>` : '';
+    const cardText = h.card ? `💳 ${escHtml(h.card)}` : 'カードなし';
+    const mergedNote = (h.merged && h.mergedTargetDay) ? `<span>(${h.month}/${h.mergedTargetDay}分へ合算)</span>` : '';
+    const addedText = fmtHistoryAddedAt(h.addedAt);
+    const addedHtml = addedText ? `<span class="history-added-at">追加 ${addedText}</span>` : '';
+    return `
+      <div class="history-row">
+        <div class="history-date-badge">${showYear}<span>${dateLabel}</span></div>
+        <div class="history-main">
+          <div class="history-title-row">
+            <span class="history-item-name">${escHtml(h.item || '内容未設定')}</span>
+            ${instBadge}${mergedBadge}
+          </div>
+          <div class="history-sub">
+            <span>${cardText}</span>${mergedNote}${addedHtml}
+          </div>
+        </div>
+        <div class="history-amount">${fmtAmt(h.amount || 0)}</div>
+      </div>`;
+  }).join('');
+}
+
 function submitAddPayment() {
   const dayVal = document.getElementById('add-pay-day').value;
   const amtVal = document.getElementById('add-pay-amount').value;
@@ -1144,13 +1259,14 @@ function submitAddPayment() {
   const newIdx = monthData[key].length - 1;
 
   recordRecentPayment(newRow.item, newRow.card, newRow.installments);
+  const historyId = recordPaymentHistory(currentYear, currentMonth + 1, newRow);
 
   closeModal('add-payment-modal');
   renderKakeibo();
   scheduleAutoSave();
   showToast('＋ 支払いを追加しました', 'success');
 
-  checkDuplicate(newIdx);
+  checkDuplicate(newIdx, historyId);
 }
 
 // ======================================================================
@@ -1225,7 +1341,7 @@ function getPayYearMonth(useYear, useMonth, useDay, closeDay) {
   return { year: py, month: pm };
 }
 
-function checkDuplicate(i){
+function checkDuplicate(i, historyId=null){
   const key=getKey();
   const rows=monthData[key]||[];
   const cur=rows[i];
@@ -1257,8 +1373,17 @@ function checkDuplicate(i){
         合計：<span class="dup-highlight">${fmtAmt(prev.amount+cur.amount)}</span><br><br>
         金額を合算しますか？`;
       document.getElementById('dup-yes-btn').onclick=()=>{
+        const mergedTargetDay=parseInt(prev.day)||1;
         rows[j].amount=prev.amount+cur.amount;
         rows.splice(i,1);
+        // 履歴には合算前の日付・金額のまま残し、合算済みフラグのみ付与
+        if(historyId){
+          const targetHist=paymentHistory.find(h=>h.id===historyId);
+          if(targetHist){
+            targetHist.merged=true;
+            targetHist.mergedTargetDay=mergedTargetDay;
+          }
+        }
         closeModal('dup-modal');
         renderExpenseRows();updateSummary();scheduleAutoSave();
         showToast('合算しました','success');
@@ -1880,6 +2005,7 @@ function saveToStorage(){
       settings,
       simBalance:document.getElementById('current-balance')?.value||'77497',
       recentPayments,
+      paymentHistory,
       simIncludeToday
     };
     localStorage.setItem(LS_KEY,JSON.stringify(payload));
@@ -1894,6 +2020,7 @@ function loadFromStorage(){
     if(p.incomeData)incomeData=p.incomeData;
     if(p.settings)settings=p.settings;
     if(Array.isArray(p.recentPayments))recentPayments=p.recentPayments;
+    if(Array.isArray(p.paymentHistory))paymentHistory=p.paymentHistory.slice(0,PAYMENT_HISTORY_MAX);
     if(typeof p.simIncludeToday==='boolean')simIncludeToday=p.simIncludeToday;
     normalizeSettings();
     if(p.savedAt)updateSaveTs(p.savedAt);
@@ -1922,6 +2049,7 @@ function downloadData(){
     settings,
     simBalance:document.getElementById('current-balance')?.value||'0',
     recentPayments,
+    paymentHistory,
     simIncludeToday
   };
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
@@ -1958,11 +2086,13 @@ function applyImport(){
   if(p.settings)settings=p.settings;
   if(Array.isArray(p.recentPayments))recentPayments=p.recentPayments;
   else { recentPayments=[]; seedRecentPaymentsFromMonthData(); }
+  if(Array.isArray(p.paymentHistory))paymentHistory=p.paymentHistory.slice(0,PAYMENT_HISTORY_MAX);
+  else paymentHistory=[];
   if(typeof p.simIncludeToday==='boolean')simIncludeToday=p.simIncludeToday;
   normalizeSettings();
   if(p.simBalance!==undefined && p.simBalance!==null){const el=document.getElementById('current-balance');if(el)el.value=p.simBalance;}
   closeModal('import-confirm-modal');pendingImport=null;
-  saveToStorage();renderKakeibo();renderSettingsPage();updateSimTodayToggleUI();
+  saveToStorage();renderKakeibo();renderHistoryPage();renderSettingsPage();updateSimTodayToggleUI();
   showToast('⬆ 読み込みました','success');
 }
 
@@ -1975,7 +2105,7 @@ function confirmClearData(){
 }
 
 function clearAllData(){
-  localStorage.removeItem(LS_KEY);monthData={};incomeData={};recentPayments=[];simIncludeToday=true;
+  localStorage.removeItem(LS_KEY);monthData={};incomeData={};recentPayments=[];paymentHistory=[];simIncludeToday=true;
   settings={
     cards:[
       {name:'イオンカード',      closeDay:10,     day:2,  holiday:'next'},
@@ -1993,7 +2123,7 @@ function clearAllData(){
     income:[{name:'日本学生支援機構',day:11,amount:0,holiday:'prev',defaultAmount:113271},{name:'水春',day:15,amount:0,holiday:'prev',defaultAmount:0}]
   };
   lastSaveTs='';
-  renderKakeibo();renderSettingsPage();updateSimTodayToggleUI();
+  renderKakeibo();renderHistoryPage();renderSettingsPage();updateSimTodayToggleUI();
   showToast('🗑 消去しました','warn');
 }
 
