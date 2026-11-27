@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="app-version" content="20261126-210000">
+<meta name="app-version" content="20261127-134314">
 <title>家計簿</title>
 <script>
 (()=>{
-  const V="20261126-210000",SK="__ag_upd_snap__",TK="__ag_upd_try__",AK="__ag_upd_at__";
+  const V="20261127-134314",SK="__ag_upd_snap__",TK="__ag_upd_try__",AK="__ag_upd_at__";
   try{
     const u=new URL(location.href);
     if(u.searchParams.has("_v")){
@@ -268,6 +268,7 @@
   /* 支出履歴ページ */
   .history-row{display:grid;grid-template-columns:46px 1fr auto;align-items:center;padding:11px 14px;border-bottom:1px solid var(--border);gap:10px;}
   .history-row:last-child{border-bottom:none;}
+  .history-row.is-deleted{background:rgba(229,57,53,.04);border-left:3px solid var(--red);padding-left:11px;}
   .history-date-badge{width:46px;min-height:36px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--text2);line-height:1.15;flex-shrink:0;}
   .history-date-year{font-size:9px;color:var(--text3);font-weight:600;}
   .history-main{min-width:0;}
@@ -275,10 +276,12 @@
   .history-item-name{font-size:13.5px;font-weight:700;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
   .history-badge{font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:8px;flex-shrink:0;}
   .history-badge.merged{background:var(--yellow-light);color:#B45309;border:1px solid rgba(245,158,11,.35);}
+  .history-badge.deleted{background:var(--red-light);color:var(--red);border:1px solid rgba(229,57,53,.3);}
   .history-badge.inst{background:var(--accent-light);color:var(--accent);}
   .history-sub{font-size:11px;color:var(--text2);display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;line-height:1.35;}
   .history-added-at{color:var(--text3);font-size:10.5px;}
   .history-amount{font-size:14.5px;font-weight:700;color:var(--red);text-align:right;white-space:nowrap;}
+  .history-amount.is-deleted{color:var(--text3);text-decoration:line-through;}
   .history-empty{padding:36px 20px;text-align:center;color:var(--text3);font-size:13px;line-height:1.7;}
   .tab-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:8px 0;border:none;background:none;cursor:pointer;font-family:inherit;color:var(--text3);transition:color .15s;}
   .tab-btn.active{color:var(--accent);}
@@ -306,27 +309,30 @@
   .modal-btn-ghost{width:100%;padding:14px;background:var(--surface2);color:var(--text2);border:1px solid var(--border);border-radius:12px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;}
   .modal-btn-danger{width:100%;padding:14px;background:var(--red-light);color:var(--red);border:none;border-radius:12px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;}
 
-  /* 最近の支払い候補チップ（2列・最大4件でスクロールなし表示） */
-  .recent-pay-section{margin-bottom:10px;padding:8px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;}
-  .recent-pay-label{font-size:10.5px;font-weight:700;color:var(--text2);margin-bottom:5px;display:flex;align-items:center;gap:4px;}
-  .recent-pay-chips{display:grid;grid-template-columns:1fr 1fr;gap:5px;}
-  .recent-pay-chip{border:1px solid var(--border);background:var(--surface);border-radius:10px;padding:5px 8px;font-family:inherit;font-size:11.5px;font-weight:600;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:4px;width:100%;min-width:0;transition:all .15s;}
+  /* 最近の支払い候補チップ（2列・最大10件でスクロールなし表示） */
+  .recent-pay-section{margin-bottom:8px;padding:6px 8px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;}
+  .recent-pay-label{font-size:10px;font-weight:700;color:var(--text2);margin-bottom:4px;display:flex;align-items:center;gap:4px;}
+  .recent-pay-chips{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
+  .recent-pay-chip{border:1px solid var(--border);background:var(--surface);border-radius:8px;padding:4px 6px;font-family:inherit;font-size:10.5px;line-height:1.25;font-weight:600;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:3px;width:100%;min-width:0;transition:all .15s;}
   .recent-pay-chip:active{background:var(--accent-light);border-color:var(--accent);color:var(--accent);}
   .recent-pay-chip-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;text-align:left;}
-  .recent-pay-chip-sub{font-size:9.5px;font-weight:600;color:var(--text2);background:var(--surface2);padding:1px 5px;border-radius:8px;max-width:64px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex-shrink:0;}
+  .recent-pay-chip-sub{font-size:9px;font-weight:600;color:var(--text2);background:var(--surface2);padding:1px 4px;border-radius:6px;max-width:56px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex-shrink:0;}
 
-  /* 支払い追加モーダルを1画面に収めるコンパクト調整 */
-  #add-payment-modal .modal{max-height:96vh;max-height:96dvh;}
-  #add-payment-modal .modal-handle{margin:8px auto 10px;}
-  #add-payment-modal .modal-title{font-size:15px;padding:0 16px 10px;}
-  #add-payment-modal .modal-body{padding:10px 16px 8px;}
+  /* 支払い追加モーダルを10件表示でも1画面（スクロールなし）に収めるコンパクト調整 */
+  #add-payment-modal .modal{max-height:98vh;max-height:98dvh;overflow-y:hidden;}
+  #add-payment-modal .modal-handle{margin:6px auto 6px;}
+  #add-payment-modal .modal-title{font-size:14px;padding:0 14px 7px;}
+  #add-payment-modal .modal-body{padding:8px 14px 6px;}
   #add-payment-modal .form-row,
-  #add-payment-modal .form-row-2col{margin-bottom:9px;}
-  #add-payment-modal .form-label{font-size:11px;margin-bottom:4px;}
-  #add-payment-modal .form-input{padding:9px 10px;font-size:14px;}
-  #add-payment-modal .modal-footer{padding:8px 16px 14px;display:grid;grid-template-columns:1fr 1.6fr;gap:8px;}
+  #add-payment-modal .form-row-2col{margin-bottom:7px;gap:8px;}
+  #add-payment-modal .form-label{font-size:10.5px;margin-bottom:3px;}
+  #add-payment-modal .form-input{padding:7px 10px;font-size:13.5px;}
+  #add-payment-modal .modal-footer{padding:6px 14px 10px;display:grid;grid-template-columns:1fr 1.6fr;gap:8px;}
   #add-payment-modal .modal-btn-primary,
-  #add-payment-modal .modal-btn-ghost{padding:12px 10px;font-size:14px;}
+  #add-payment-modal .modal-btn-ghost{padding:10px;font-size:13.5px;}
+  @media (max-height:520px){
+    #add-payment-modal .modal{overflow-y:auto;}
+  }
 
   .dup-msg{font-size:14px;color:var(--text);line-height:1.6;margin-bottom:16px;}
   .dup-highlight{font-weight:700;color:var(--accent);}
@@ -660,8 +666,9 @@
       <button class="calc-btn" onclick="calcNum('2')">2</button>
       <button class="calc-btn" onclick="calcNum('3')">3</button>
       <button class="calc-btn op" onclick="calcOp('+')">+</button>
-      <button class="calc-btn zero" onclick="calcNum('0')">0</button>
+      <button class="calc-btn" onclick="calcNum('0')">0</button>
       <button class="calc-btn" onclick="calcNum('.')">.</button>
+      <button class="calc-btn fn" onclick="calcFn('backspace')" aria-label="1桁削除" style="font-size:18px;">⌫</button>
       <button class="calc-btn eq" onclick="calcEq()">=</button>
     </div>
     <div class="calc-footer">
@@ -686,7 +693,7 @@ let monthData={};
 let incomeData={};
 let lastOpenedDate='';
 let recentPayments=[];
-const RECENT_PAYMENTS_MAX=4;
+const RECENT_PAYMENTS_MAX=10;
 let paymentHistory=[];
 const PAYMENT_HISTORY_MAX=20;
 let simIncludeToday=true;
@@ -1182,10 +1189,36 @@ function recordRecentPayment(item, card, installments) {
   }
 }
 
+function getActiveExpenseItemNames() {
+  const names = new Set();
+  Object.keys(monthData || {}).forEach(k => {
+    const rows = monthData[k] || [];
+    rows.forEach(r => {
+      const n = (r && r.item ? String(r.item) : '').trim();
+      if (n) names.add(n);
+    });
+  });
+  return names;
+}
+
+function pruneRecentPaymentsByExistingExpenses() {
+  const activeNames = getActiveExpenseItemNames();
+  recentPayments = (recentPayments || []).filter(r => activeNames.has((r && r.item ? String(r.item) : '').trim()));
+  seedRecentPaymentsFromMonthData();
+}
+
 function seedRecentPaymentsFromMonthData() {
-  if (recentPayments.length > 0) return;
+  if (!Array.isArray(recentPayments)) recentPayments = [];
+  if (recentPayments.length >= RECENT_PAYMENTS_MAX) {
+    recentPayments = recentPayments.slice(0, RECENT_PAYMENTS_MAX);
+    return;
+  }
+  const seen = new Set(recentPayments.map(r => {
+    const cardName = r.card || '';
+    const inst = cardName ? (parseInt(r.installments) || 1) : 1;
+    return `${(r.item || '').trim()}|${cardName}|${inst}`;
+  }));
   const keys = Object.keys(monthData).sort().reverse();
-  const seen = new Set();
   for (const k of keys) {
     const rows = monthData[k] || [];
     for (let i = rows.length - 1; i >= 0; i--) {
@@ -1204,6 +1237,7 @@ function seedRecentPaymentsFromMonthData() {
 }
 
 function renderRecentPaymentChips() {
+  pruneRecentPaymentsByExistingExpenses();
   const sec = document.getElementById('recent-pay-section');
   const wrap = document.getElementById('recent-pay-chips');
   if (!sec || !wrap) return;
@@ -1284,9 +1318,10 @@ function openCalcForAddPayment() {
   });
 }
 
-function recordPaymentHistory(year, monthOneBased, row) {
+function recordPaymentHistory(year, monthOneBased, row, action = 'add') {
   const entry = {
     id: Date.now() + '_' + Math.random().toString(36).slice(2, 7),
+    action: action,
     addedAt: new Date().toISOString(),
     year: year,
     month: monthOneBased,
@@ -1319,33 +1354,36 @@ function renderHistoryPage() {
   const list = (paymentHistory || []).slice(0, PAYMENT_HISTORY_MAX);
   if (countEl) countEl.textContent = `${list.length} / ${PAYMENT_HISTORY_MAX}件`;
   if (list.length === 0) {
-    wrap.innerHTML = `<div class="history-empty">まだ支払い追加履歴がありません<br>「＋ 支払いを追加」から登録すると最新${PAYMENT_HISTORY_MAX}件まで表示されます</div>`;
+    wrap.innerHTML = `<div class="history-empty">まだ支出履歴がありません<br>支払いを追加・削除すると最新${PAYMENT_HISTORY_MAX}件まで表示されます</div>`;
     return;
   }
   const nowYear = new Date().getFullYear();
   wrap.innerHTML = list.map(h => {
+    const isDeleted = h.action === 'delete';
     const showYear = h.year && h.year !== nowYear ? `<span class="history-date-year">${h.year}</span>` : '';
     const dateLabel = `${h.month || ''}/${h.day || ''}`;
     const inst = parseInt(h.installments) || 1;
     const instBadge = (h.card && inst > 1) ? `<span class="history-badge inst">${inst}回</span>` : '';
-    const mergedBadge = h.merged ? `<span class="history-badge merged">合算済</span>` : '';
+    const deletedBadge = isDeleted ? `<span class="history-badge deleted">削除</span>` : '';
+    const mergedBadge = (!isDeleted && h.merged) ? `<span class="history-badge merged">合算済</span>` : '';
     const cardText = h.card ? `💳 ${escHtml(h.card)}` : 'カードなし';
-    const mergedNote = (h.merged && h.mergedTargetDay) ? `<span>(${h.month}/${h.mergedTargetDay}分へ合算)</span>` : '';
+    const mergedNote = (!isDeleted && h.merged && h.mergedTargetDay) ? `<span>(${h.month}/${h.mergedTargetDay}分へ合算)</span>` : '';
     const addedText = fmtHistoryAddedAt(h.addedAt);
-    const addedHtml = addedText ? `<span class="history-added-at">追加 ${addedText}</span>` : '';
+    const timePrefix = isDeleted ? '削除' : '追加';
+    const addedHtml = addedText ? `<span class="history-added-at">${timePrefix} ${addedText}</span>` : '';
     return `
-      <div class="history-row">
+      <div class="history-row${isDeleted ? ' is-deleted' : ''}">
         <div class="history-date-badge">${showYear}<span>${dateLabel}</span></div>
         <div class="history-main">
           <div class="history-title-row">
             <span class="history-item-name">${escHtml(h.item || '内容未設定')}</span>
-            ${instBadge}${mergedBadge}
+            ${deletedBadge}${instBadge}${mergedBadge}
           </div>
           <div class="history-sub">
             <span>${cardText}</span>${mergedNote}${addedHtml}
           </div>
         </div>
-        <div class="history-amount">${fmtAmt(h.amount || 0)}</div>
+        <div class="history-amount${isDeleted ? ' is-deleted' : ''}">${fmtAmt(h.amount || 0)}</div>
       </div>`;
   }).join('');
 }
@@ -1430,9 +1468,14 @@ function executeDelete() {
   const { key, index } = pendingDeleteInfo;
 
   if (monthData[key] && monthData[key][index]) {
+    const deletedRow = monthData[key][index];
+    const [y, m] = key.split('-').map(Number);
     pushUndo();
     monthData[key].splice(index, 1);
+    recordPaymentHistory(y, m, deletedRow, 'delete');
+    pruneRecentPaymentsByExistingExpenses();
     renderKakeibo();
+    renderHistoryPage();
     scheduleAutoSave();
     showToast('🗑 削除しました', 'warn');
   }
@@ -2059,8 +2102,13 @@ function openCalc(callback){
 }
 function updateCalcDisplay(){
   document.getElementById('calc-expr').textContent=calcState.expr;
-  const num=parseFloat(calcState.val);
-  document.getElementById('calc-val').textContent=isNaN(num)?calcState.val:num.toLocaleString('ja-JP');
+  const s=String(calcState.val);
+  if(s===''||s==='-'){document.getElementById('calc-val').textContent='0';return;}
+  const parts=s.split('.');
+  const intNum=parseFloat(parts[0]);
+  if(isNaN(intNum)){document.getElementById('calc-val').textContent=s;return;}
+  const intFmt=(parts[0].startsWith('-')&&intNum===0?'-0':intNum.toLocaleString('ja-JP'));
+  document.getElementById('calc-val').textContent=parts.length>1?`${intFmt}.${parts[1]}`:intFmt;
 }
 function calcNum(n){
   if(calcState.justCalced){calcState.val='0';calcState.expr='';calcState.justCalced=false;}
@@ -2096,6 +2144,17 @@ function calcFn(fn){
   if(fn==='clear'){calcState={expr:'',val:'0',prevVal:'',op:'',justCalced:false};}
   else if(fn==='sign'){calcState.val=String(-parseFloat(calcState.val||0));}
   else if(fn==='pct'){calcState.val=String(parseFloat(calcState.val||0)/100);}
+  else if(fn==='backspace'){
+    if(calcState.justCalced){calcState.expr='';calcState.justCalced=false;}
+    let s=String(calcState.val||'0');
+    if(s.length<=1||(s.length===2&&s.startsWith('-'))){
+      calcState.val='0';
+    }else{
+      s=s.slice(0,-1);
+      if(s===''||s==='-')s='0';
+      calcState.val=s;
+    }
+  }
   updateCalcDisplay();
 }
 function calcUse(){
@@ -2206,7 +2265,8 @@ function applyImport(){
   if(p.incomeData)incomeData=p.incomeData;
   if(p.settings)settings=p.settings;
   if(Array.isArray(p.recentPayments))recentPayments=p.recentPayments;
-  else { recentPayments=[]; seedRecentPaymentsFromMonthData(); }
+  else recentPayments=[];
+  pruneRecentPaymentsByExistingExpenses();
   if(Array.isArray(p.paymentHistory))paymentHistory=p.paymentHistory.slice(0,PAYMENT_HISTORY_MAX);
   else paymentHistory=[];
   if(typeof p.simIncludeToday==='boolean')simIncludeToday=p.simIncludeToday;
@@ -2286,7 +2346,7 @@ function init(){
     incomeData[key]={'水春':49950};
   }
   normalizeSettings();
-  seedRecentPaymentsFromMonthData();
+  pruneRecentPaymentsByExistingExpenses();
   updateSimTodayToggleUI();
 
   // 過去の保存データ互換性のために日付順ソート
