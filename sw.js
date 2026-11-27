@@ -1,5 +1,5 @@
-const CACHE_NAME = 'kakeibo-20261126-210000';
-const ASSET_VER = '20261126-210000';
+const CACHE_NAME = 'kakeibo-20261127-134314';
+const ASSET_VER = '20261127-134314';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
